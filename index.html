@@ -10,7 +10,20 @@
 <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-<div class="app">
+<div id="authScreen" class="auth-screen" hidden>
+  <div class="auth-card">
+    <div class="brand-mark" aria-hidden="true">AF</div>
+    <h1 id="authTitle">Вход</h1>
+    <p id="authHint" class="hint"></p>
+    <form id="authForm">
+      <label class="fld"><span>Пароль</span><input type="password" id="authPassword" autocomplete="current-password" required></label>
+      <label class="fld" id="authConfirmWrap" hidden><span>Повторите пароль</span><input type="password" id="authConfirm" autocomplete="new-password"></label>
+      <button type="submit" class="btn primary block">Войти</button>
+      <p id="authError" class="auth-error" hidden></p>
+    </form>
+  </div>
+</div>
+<div class="app" id="appRoot" hidden>
   <aside class="nav" aria-label="Разделы">
     <div class="brand">
       <div class="brand-mark" aria-hidden="true">AF</div>
@@ -18,7 +31,7 @@
     </div>
     <div id="navList" style="display:contents"></div>
     <button class="btn primary nav-add" data-act="addTx">+ Операция</button>
-    <div class="nav-foot"><span class="dot" id="syncDot"></span><span id="syncText">Загрузка…</span></div>
+    <div class="nav-foot"><span class="dot" id="syncDot"></span><span id="syncText">Загрузка…</span><button class="link" data-act="logout" style="margin-left:auto;font-size:12px">Выйти</button></div>
   </aside>
   <main>
     <header class="stamp" id="stamp"></header>

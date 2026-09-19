@@ -69,6 +69,15 @@ h1,h2,h3{margin:0;text-wrap:balance}
 .dot.ok{background:var(--pos)} .dot.warn{background:var(--warn)}
 main{min-width:0;padding:22px 28px 60px;display:flex;flex-direction:column;gap:18px}
 
+/* Auth screen */
+.auth-screen{position:fixed;inset:0;background:var(--ground);display:flex;align-items:center;justify-content:center;padding:20px;z-index:100}
+.auth-card{width:100%;max-width:360px;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:30px 26px;box-shadow:var(--shadow)}
+.auth-card .brand-mark{width:40px;height:40px;border:1.5px solid var(--ink);display:grid;place-items:center;font:600 14px/1 var(--f-display);margin:0 auto 16px}
+.auth-card h1{font:600 22px/1.25 var(--f-display);text-align:center;margin-bottom:6px}
+.auth-card .hint{text-align:center;margin:0 0 18px}
+.auth-card form{display:flex;flex-direction:column;gap:12px}
+.auth-error{color:var(--neg);font-size:13px;margin:0;text-align:center}
+
 /* Drawing title block (штамп) */
 .stamp{display:grid;grid-template-columns:minmax(220px,2.2fr) repeat(3,minmax(120px,1fr)) auto;border:1.5px solid var(--ink);background:var(--surface)}
 .stamp>div{padding:8px 12px;border-left:1px solid var(--ink);min-width:0}

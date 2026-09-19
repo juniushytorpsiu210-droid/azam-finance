@@ -108,6 +108,76 @@ const Store = {
   }
 };
 
+/* ---------- Auth ----------
+   Экран входа — заслон от случайного доступа, а не настоящая защита: приложение работает
+   без сервера, поэтому любой, кто откроет консоль браузера, может обойти проверку. */
+const AUTH_KEY = 'azam-finance-auth', SESSION_KEY = 'azam-finance-session';
+async function sha256Hex(str) {
+  const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(str));
+  return [...new Uint8Array(buf)].map(b => b.toString(16).padStart(2, '0')).join('');
+}
+function randomSalt() { return [...crypto.getRandomValues(new Uint8Array(16))].map(b => b.toString(16).padStart(2, '0')).join(''); }
+const Auth = {
+  hasPassword() { try { return !!localStorage.getItem(AUTH_KEY); } catch (e) { return false; } },
+  isUnlocked() { try { return sessionStorage.getItem(SESSION_KEY) === '1'; } catch (e) { return false; } },
+  async setPassword(pw) {
+    const salt = randomSalt(), hash = await sha256Hex(salt + pw);
+    localStorage.setItem(AUTH_KEY, JSON.stringify({salt, hash}));
+  },
+  async check(pw) {
+    try {
+      const rec = JSON.parse(localStorage.getItem(AUTH_KEY) || 'null');
+      if (!rec) return false;
+      return (await sha256Hex(rec.salt + pw)) === rec.hash;
+    } catch (e) { return false; }
+  },
+  unlock() { try { sessionStorage.setItem(SESSION_KEY, '1'); } catch (e) {} },
+  lock() { try { sessionStorage.removeItem(SESSION_KEY); } catch (e) {} }
+};
+function showAuthScreen(mode) {
+  $('#appRoot').hidden = true;
+  const el = $('#authScreen'); el.hidden = false;
+  $('#authTitle').textContent = mode === 'setup' ? 'Задайте пароль' : 'Вход';
+  $('#authHint').textContent = mode === 'setup' ? 'Пароль будет нужен для входа в приложение на этом компьютере.' : 'Введите пароль, чтобы открыть Azam Finance.';
+  $('#authConfirmWrap').hidden = mode !== 'setup';
+  $('#authConfirm').required = mode === 'setup';
+  $('#authError').hidden = true;
+  $('#authPassword').value = ''; $('#authConfirm').value = '';
+  $('#authForm').dataset.mode = mode;
+  $('#authPassword').focus();
+}
+function hideAuthScreen() { $('#authScreen').hidden = true; $('#appRoot').hidden = false; }
+$('#authForm').addEventListener('submit', async e => {
+  e.preventDefault();
+  const mode = $('#authForm').dataset.mode, pw = $('#authPassword').value, err = $('#authError');
+  const fail = msg => { err.textContent = msg; err.hidden = false; };
+  if (mode === 'setup') {
+    if (pw.length < 4) return fail('Пароль слишком короткий (минимум 4 символа)');
+    if (pw !== $('#authConfirm').value) return fail('Пароли не совпадают');
+    await Auth.setPassword(pw);
+  } else {
+    if (!(await Auth.check(pw))) { $('#authPassword').value = ''; $('#authPassword').focus(); return fail('Неверный пароль'); }
+  }
+  Auth.unlock();
+  hideAuthScreen();
+  startApp();
+});
+function changePasswordDialog() {
+  const html = `<div class="grid-f">
+    <label class="fld span2"><span>Текущий пароль</span><input type="password" name="current" required autocomplete="current-password"></label>
+    <label class="fld"><span>Новый пароль</span><input type="password" name="new1" required autocomplete="new-password"></label>
+    <label class="fld"><span>Повторите новый пароль</span><input type="password" name="new2" required autocomplete="new-password"></label>
+  </div>`;
+  openDialog('Сменить пароль', html, async fd => {
+    const current = fd.get('current'), n1 = fd.get('new1'), n2 = fd.get('new2');
+    if (!(await Auth.check(current))) { toast('Текущий пароль неверен', true); return false; }
+    if (n1.length < 4) { toast('Новый пароль слишком короткий (минимум 4 символа)', true); return false; }
+    if (n1 !== n2) { toast('Пароли не совпадают', true); return false; }
+    await Auth.setPassword(n1);
+    toast('Пароль изменён');
+  });
+}
+
 /* ---------- Money & dates ---------- */
 const nf = new Intl.NumberFormat('ru-RU', {minimumFractionDigits: 0, maximumFractionDigits: 2});
 const CUR = {TJS: 'смн', USD: '$'};
@@ -737,6 +807,10 @@ function renderSettings() {
       </div>
     </div>
   </div>
+  <div class="card"><div class="card-head"><h2>Безопасность</h2></div>
+    <p style="margin:0 0 14px">Экран входа защищает от случайного доступа к этому браузеру — не от целенаправленного взлома (данные всё ещё хранятся локально, без шифрования).</p>
+    <div class="actions"><button class="btn" data-act="changePassword">Сменить пароль</button><button class="btn ghost" data-act="logout">Выйти</button></div>
+  </div>
   <div class="grid-2e">${catBlock('income', 'Статьи доходов')}${catBlock('expense', 'Статьи расходов')}</div>`;
 }
 
@@ -749,11 +823,11 @@ function openDialog(title, html, onOk, opts = {}) {
   if (opts.wire) opts.wire($('#dlgBody'));
   const first = $('#dlgBody').querySelector('input:not([type=radio]):not([type=checkbox]),select'); if (first && !opts.noFocus) first.focus();
 }
-$('#dlgForm').addEventListener('submit', e => {
+$('#dlgForm').addEventListener('submit', async e => {
   if (!e.submitter || e.submitter.value !== 'ok') return;
   e.preventDefault();
   const fd = new FormData($('#dlgForm'));
-  if (dlgHandler && dlgHandler(fd) === false) return;
+  if (dlgHandler && (await dlgHandler(fd)) === false) return;
   dlg.close();
 });
 function confirmDlg(title, text, onYes, ok = 'Удалить') { openDialog(title, `<p>${text}</p>`, () => { onYes(); }, {ok, danger: true, noFocus: true}); }
@@ -1048,7 +1122,9 @@ const actions = {
       toast('Все данные удалены — можно начинать с чистого листа');
     }, 'Да, удалить всё');
   },
-  print: () => window.print()
+  print: () => window.print(),
+  logout: () => { Auth.lock(); location.reload(); },
+  changePassword: () => changePasswordDialog()
 };
 document.addEventListener('click', e => {
   const el = e.target.closest('[data-act]'); if (!el) return;
@@ -1098,6 +1174,8 @@ document.addEventListener('pointermove', e => {
 let toastTimer;
 function toast(msg, err) { const t = $('#toast'); t.textContent = msg; t.className = 'toast' + (err ? ' err' : ''); t.hidden = false; clearTimeout(toastTimer); toastTimer = setTimeout(() => { t.hidden = true; }, 3200); }
 
-render();
-Store.init();
+function startApp() { render(); Store.init(); }
+if (Auth.isUnlocked()) startApp();
+else if (Auth.hasPassword()) showAuthScreen('login');
+else showAuthScreen('setup');
 })();
