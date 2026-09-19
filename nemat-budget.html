@@ -1,0 +1,1050 @@
+<title>Бюджет Неъмат 2010</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans+Condensed:wght@500;600&display=swap">
+<style>
+:root{
+  color-scheme: light;
+  --ground:#eef2f1;
+  --surface:#fcfdfc;
+  --surface-2:#f1f5f4;
+  --ink:#121a19;
+  --ink-2:#4a5553;
+  --ink-3:#7a8583;
+  --line:#d8dfdd;
+  --line-strong:#b3bebb;
+  --accent:#0b6b73;
+  --accent-hover:#085a61;
+  --accent-ink:#ffffff;
+  --accent-soft:#dcecec;
+  --pos:#0a7a45;
+  --neg:#b4402a;
+  --warn:#8f6200;
+  --warn-soft:#fbefd2;
+  --good-soft:#dcf1e4;
+  --neg-soft:#f8e1dc;
+  --s-inc:#1baf7a;
+  --s-exp:#eb6834;
+  --grid:#e3e8e6;
+  --shadow:0 1px 2px rgba(18,26,25,.06), 0 8px 24px rgba(18,26,25,.06);
+  --f-display:"IBM Plex Sans Condensed","Arial Narrow",system-ui,sans-serif;
+  --f-body:"Golos Text",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --f-mono:"IBM Plex Mono",ui-monospace,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    color-scheme: dark;
+    --ground:#0d1211; --surface:#151c1b; --surface-2:#1b2423; --ink:#e5eceb; --ink-2:#a8b4b2; --ink-3:#76827f;
+    --line:#26302e; --line-strong:#3a4644; --accent:#4fb4bb; --accent-hover:#6cc4ca; --accent-ink:#04201f; --accent-soft:#163a3b;
+    --pos:#43c985; --neg:#f08b70; --warn:#e6b54a; --warn-soft:#3a2e12; --good-soft:#133524; --neg-soft:#3d1f18;
+    --s-inc:#199e70; --s-exp:#d95926; --grid:#222b2a; --shadow:0 1px 2px rgba(0,0,0,.3), 0 8px 24px rgba(0,0,0,.25);
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme: dark;
+  --ground:#0d1211; --surface:#151c1b; --surface-2:#1b2423; --ink:#e5eceb; --ink-2:#a8b4b2; --ink-3:#76827f;
+  --line:#26302e; --line-strong:#3a4644; --accent:#4fb4bb; --accent-hover:#6cc4ca; --accent-ink:#04201f; --accent-soft:#163a3b;
+  --pos:#43c985; --neg:#f08b70; --warn:#e6b54a; --warn-soft:#3a2e12; --good-soft:#133524; --neg-soft:#3d1f18;
+  --s-inc:#199e70; --s-exp:#d95926; --grid:#222b2a; --shadow:0 1px 2px rgba(0,0,0,.3), 0 8px 24px rgba(0,0,0,.25);
+}
+*{box-sizing:border-box}
+body{background:var(--ground);color:var(--ink);font:15px/1.5 var(--f-body);-webkit-font-smoothing:antialiased}
+button,input,select,textarea{font:inherit;color:inherit}
+h1,h2,h3{margin:0;text-wrap:balance}
+.num{font-family:var(--f-mono);font-variant-numeric:tabular-nums;letter-spacing:-.01em;white-space:nowrap}
+.muted{color:var(--ink-3)}
+.pos{color:var(--pos)} .neg{color:var(--neg)}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+
+/* Layout */
+.app{display:grid;grid-template-columns:232px minmax(0,1fr);min-height:100vh}
+.nav{position:sticky;top:0;height:100vh;display:flex;flex-direction:column;gap:4px;padding:20px 14px;border-right:1px solid var(--line);background:var(--surface)}
+.brand{display:flex;align-items:center;gap:10px;padding:4px 8px 18px}
+.brand-mark{width:34px;height:34px;flex:none;border:1.5px solid var(--ink);display:grid;place-items:center;font:600 13px/1 var(--f-display);letter-spacing:.02em}
+.brand-name{font:600 17px/1.1 var(--f-display);letter-spacing:.04em;text-transform:uppercase}
+.brand-sub{font-size:12px;color:var(--ink-3)}
+.nav-btn{display:flex;align-items:center;justify-content:space-between;width:100%;text-align:left;border:0;background:transparent;padding:9px 10px;border-radius:6px;cursor:pointer;color:var(--ink-2);font-weight:500}
+.nav-btn:hover{background:var(--surface-2);color:var(--ink)}
+.nav-btn[aria-current="page"]{background:var(--accent-soft);color:var(--ink)}
+.nav-btn[aria-current="page"]::after{content:"";width:6px;height:6px;background:var(--accent);border-radius:1px}
+.nav-add{margin:14px 0 6px}
+.nav-foot{margin-top:auto;font-size:12px;color:var(--ink-3);padding:10px 8px 0;border-top:1px solid var(--line);display:flex;gap:8px;align-items:flex-start}
+.dot{width:8px;height:8px;border-radius:50%;flex:none;margin-top:5px;background:var(--ink-3)}
+.dot.ok{background:var(--pos)} .dot.warn{background:var(--warn)}
+main{min-width:0;padding:22px 28px 60px;display:flex;flex-direction:column;gap:18px}
+
+/* Drawing title block (штамп) */
+.stamp{display:grid;grid-template-columns:minmax(220px,2.2fr) repeat(3,minmax(120px,1fr)) auto;border:1.5px solid var(--ink);background:var(--surface)}
+.stamp>div{padding:8px 12px;border-left:1px solid var(--ink);min-width:0}
+.stamp>div:first-child{border-left:0}
+.stamp-l{font:500 10.5px/1.2 var(--f-display);letter-spacing:.09em;text-transform:uppercase;color:var(--ink-3)}
+.stamp-v{font:600 15px/1.35 var(--f-display);letter-spacing:.02em;margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.stamp-v.big{font-size:22px;letter-spacing:.05em;text-transform:uppercase}
+.stamp-v.num{font-family:var(--f-mono);font-weight:500;font-size:14px}
+.cur-toggle{display:flex;gap:0;margin-top:4px;border:1px solid var(--line-strong);border-radius:5px;overflow:hidden}
+.cur-toggle button{border:0;background:transparent;padding:3px 10px;cursor:pointer;font:500 13px/1.4 var(--f-mono)}
+.cur-toggle button[aria-pressed="true"]{background:var(--ink);color:var(--surface)}
+
+.page-head{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:12px}
+.page-head h1{font:600 28px/1.15 var(--f-display);letter-spacing:.01em}
+.page-head p{margin:4px 0 0;color:var(--ink-2)}
+.actions{display:flex;flex-wrap:wrap;gap:8px}
+
+.btn{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line-strong);background:var(--surface);padding:8px 14px;border-radius:6px;cursor:pointer;font-weight:500;white-space:nowrap}
+.btn:hover{border-color:var(--ink-3)}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.btn.primary:hover{background:var(--accent-hover);border-color:var(--accent-hover)}
+.btn.danger{background:var(--neg);border-color:var(--neg);color:#fff}
+.btn.ghost{border-color:transparent;background:transparent}
+.btn.ghost:hover{background:var(--surface-2)}
+.btn.sm{padding:5px 10px;font-size:13px}
+.btn.block{width:100%;justify-content:center}
+.icon-btn{border:0;background:transparent;padding:6px;border-radius:5px;cursor:pointer;color:var(--ink-3);display:inline-grid;place-items:center}
+.icon-btn:hover{background:var(--surface-2);color:var(--ink)}
+.icon-btn.del:hover{color:var(--neg)}
+.icon-btn svg{width:16px;height:16px}
+
+.banner{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px;padding:12px 16px;border:1px dashed var(--warn);background:var(--warn-soft);border-radius:8px}
+.banner p{margin:0;max-width:75ch}
+
+/* Cards and KPI */
+.card{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:18px 20px;min-width:0}
+.card-head{display:flex;justify-content:space-between;align-items:baseline;gap:12px;margin-bottom:14px;flex-wrap:wrap}
+.card-head h2{font:600 17px/1.2 var(--f-display);letter-spacing:.01em}
+.card-head .sub{font-size:13px;color:var(--ink-3)}
+.link{border:0;background:none;padding:0;color:var(--accent);cursor:pointer;font-weight:500;font-size:14px}
+.link:hover{text-decoration:underline}
+.kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+.kpi{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:14px 16px;display:flex;flex-direction:column;gap:4px;min-width:0}
+.kpi-l{font:500 11px/1.3 var(--f-display);letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3)}
+.kpi-v{font:500 24px/1.2 var(--f-mono);letter-spacing:-.02em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.kpi-s{font-size:13px;color:var(--ink-2)}
+.grid-2{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(0,1fr);gap:12px}
+.grid-2e{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+
+/* Chart */
+.chart-wrap{position:relative;overflow-x:auto}
+.chart-wrap svg{display:block;width:100%;min-width:520px;height:auto}
+.chart-wrap text{font-family:var(--f-mono);font-size:11px;fill:var(--ink-3)}
+.legend{display:flex;gap:16px;font-size:13px;color:var(--ink-2)}
+.legend i{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:6px;vertical-align:-1px}
+.tip{position:absolute;pointer-events:none;background:var(--surface);border:1px solid var(--line-strong);box-shadow:var(--shadow);border-radius:6px;padding:8px 10px;font-size:13px;min-width:170px;z-index:5}
+.tip b{display:block;font-family:var(--f-display);font-weight:600;margin-bottom:4px;text-transform:capitalize}
+.tip div{display:flex;justify-content:space-between;gap:14px}
+.hit{fill:transparent;cursor:crosshair}
+.hit:hover{fill:var(--ink);fill-opacity:.04}
+
+.hbars{display:flex;flex-direction:column;gap:10px}
+.hbar-row{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:2px 12px;font-size:14px}
+.hbar-track{grid-column:1 / -1;height:6px;background:var(--surface-2);border-radius:3px;overflow:hidden}
+.hbar-fill{height:100%;background:var(--s-exp);border-radius:3px}
+
+.progress{height:6px;background:var(--surface-2);border-radius:3px;overflow:hidden;min-width:80px}
+.progress>span{display:block;height:100%;background:var(--accent);border-radius:3px}
+
+/* Tables */
+.tbl-wrap{overflow-x:auto;margin:0 -20px;padding:0 20px}
+.tbl{width:100%;border-collapse:collapse;font-size:14px}
+.tbl th{font:500 11px/1.3 var(--f-display);letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);text-align:left;padding:8px 10px;border-bottom:1px solid var(--line-strong);white-space:nowrap}
+.tbl td{padding:10px;border-bottom:1px solid var(--line);vertical-align:top}
+.tbl tr:last-child td{border-bottom:0}
+.tbl .r{text-align:right}
+.tbl tbody tr.click{cursor:pointer}
+.tbl tbody tr.click:hover td{background:var(--surface-2)}
+.tbl tfoot td{border-top:1px solid var(--line-strong);border-bottom:0;font-weight:600}
+.tbl .sec td{background:var(--surface-2);font:600 12px/1.3 var(--f-display);letter-spacing:.06em;text-transform:uppercase;color:var(--ink-2)}
+.cell-main{font-weight:500}
+.cell-sub{font-size:12.5px;color:var(--ink-3)}
+.row-actions{display:flex;justify-content:flex-end;gap:2px;white-space:nowrap}
+.empty{padding:28px 10px;text-align:center;color:var(--ink-3)}
+
+.chip{display:inline-flex;align-items:center;gap:5px;font-size:12.5px;font-weight:500;padding:2px 8px;border-radius:4px;white-space:nowrap;background:var(--surface-2);color:var(--ink-2)}
+.chip.inc{background:var(--good-soft);color:var(--pos)}
+.chip.exp{background:var(--neg-soft);color:var(--neg)}
+.chip.st-work{background:var(--accent-soft);color:var(--ink)}
+.chip.st-exp{background:var(--warn-soft);color:var(--warn)}
+.chip.st-done{background:var(--good-soft);color:var(--pos)}
+.chip.st-pause{background:var(--surface-2);color:var(--ink-3)}
+.code{font:500 12px/1.3 var(--f-mono);color:var(--ink-3);white-space:nowrap}
+.marks{display:flex;flex-wrap:wrap;gap:4px}
+.mark{font:600 11px/1 var(--f-display);letter-spacing:.06em;padding:3px 5px;border:1px solid var(--line-strong);border-radius:3px;color:var(--ink-2)}
+
+/* Filters */
+.filters{display:flex;flex-wrap:wrap;gap:10px;align-items:flex-end;margin-bottom:14px}
+.fld{display:flex;flex-direction:column;gap:4px;min-width:0}
+.fld>span{font:500 11px/1.2 var(--f-display);letter-spacing:.07em;text-transform:uppercase;color:var(--ink-3)}
+.fld input,.fld select,.fld textarea{border:1px solid var(--line-strong);background:var(--surface);border-radius:6px;padding:7px 10px;min-height:38px;width:100%}
+.fld input:focus,.fld select:focus,.fld textarea:focus{outline:2px solid var(--accent);outline-offset:-1px;border-color:var(--accent)}
+.filters .fld{width:auto}
+.filters .fld select{min-width:150px}
+.filters .grow{flex:1 1 200px}
+.tabs{display:flex;gap:4px;flex-wrap:wrap}
+.tab{border:1px solid var(--line);background:var(--surface);padding:6px 12px;border-radius:20px;cursor:pointer;font-size:14px}
+.tab[aria-pressed="true"]{background:var(--ink);color:var(--surface);border-color:var(--ink)}
+.totals{display:flex;flex-wrap:wrap;gap:6px 22px;font-size:14px;color:var(--ink-2);margin-bottom:10px}
+.totals b{font-family:var(--f-mono);font-weight:500;color:var(--ink)}
+
+.back{align-self:flex-start}
+.detail-head{display:flex;flex-direction:column;gap:6px}
+.meta{display:flex;flex-wrap:wrap;gap:6px 18px;color:var(--ink-2);font-size:14px;align-items:center}
+
+/* Dialog */
+dialog{border:1px solid var(--line-strong);border-radius:10px;padding:0;background:var(--surface);color:var(--ink);width:min(600px,calc(100vw - 24px));box-shadow:0 20px 60px rgba(0,0,0,.25)}
+dialog::backdrop{background:rgba(10,20,19,.45)}
+dialog header{padding:18px 22px 6px}
+dialog header h2{font:600 21px/1.2 var(--f-display)}
+#dlgBody{padding:12px 22px;display:flex;flex-direction:column;gap:14px;max-height:70vh;overflow:auto}
+#dlgBody p{margin:0}
+dialog footer{display:flex;justify-content:flex-end;gap:8px;padding:14px 22px 18px;border-top:1px solid var(--line)}
+.grid-f{display:grid;grid-template-columns:1fr 1fr;gap:12px 14px}
+.span2{grid-column:1 / -1}
+.seg{display:grid;grid-template-columns:1fr 1fr;border:1px solid var(--line-strong);border-radius:7px;overflow:hidden}
+.seg label{display:flex;justify-content:center;align-items:center;padding:9px;cursor:pointer;font-weight:500;color:var(--ink-2)}
+.seg input{position:absolute;opacity:0;pointer-events:none}
+.seg label:has(input:checked){background:var(--ink);color:var(--surface)}
+.seg label:has(input:focus-visible){outline:2px solid var(--accent);outline-offset:-3px}
+.checks{display:flex;flex-wrap:wrap;gap:6px}
+.checks label{display:flex;align-items:center;gap:6px;border:1px solid var(--line-strong);border-radius:5px;padding:5px 9px;cursor:pointer;font-size:13px}
+.checks label:has(input:checked){border-color:var(--accent);background:var(--accent-soft)}
+.hint{font-size:12.5px;color:var(--ink-3)}
+
+.cat-list{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px}
+.cat-item{display:inline-flex;align-items:center;gap:4px;border:1px solid var(--line-strong);border-radius:5px;padding:3px 4px 3px 9px;font-size:14px}
+.cat-item .icon-btn{padding:3px}
+.inline-add{display:flex;gap:8px}
+.inline-add input{flex:1;border:1px solid var(--line-strong);background:var(--surface);border-radius:6px;padding:7px 10px}
+
+.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:var(--ink);color:var(--surface);padding:10px 16px;border-radius:7px;font-size:14px;z-index:50;box-shadow:var(--shadow);max-width:calc(100vw - 32px)}
+.toast.err{background:var(--neg);color:#fff}
+.loading{padding:60px;text-align:center;color:var(--ink-3)}
+
+@media (max-width:1100px){
+  .kpis{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .grid-2,.grid-2e{grid-template-columns:minmax(0,1fr)}
+  .stamp{grid-template-columns:1fr 1fr}
+  .stamp>div{border-left:0;border-top:1px solid var(--ink)}
+  .stamp>div:nth-child(-n+2){border-top:0}
+  .stamp>div:nth-child(even){border-left:1px solid var(--ink)}
+  .stamp>div:first-child{grid-column:1 / -1}
+  .stamp>div:nth-child(2){border-top:1px solid var(--ink);border-left:0}
+  .stamp>div:nth-child(3){border-top:1px solid var(--ink);border-left:1px solid var(--ink)}
+  .stamp>div:nth-child(4){border-left:0}
+  .stamp>div:nth-child(5){border-left:1px solid var(--ink)}
+}
+@media (max-width:820px){
+  .app{grid-template-columns:minmax(0,1fr)}
+  .nav{position:sticky;height:auto;flex-direction:row;align-items:center;overflow-x:auto;padding:8px 10px;border-right:0;border-bottom:1px solid var(--line);z-index:10}
+  .brand{padding:0 8px 0 0}
+  .brand-sub,.nav-foot{display:none}
+  .nav-btn{width:auto;white-space:nowrap}
+  .nav-btn[aria-current="page"]::after{display:none}
+  .nav-add{margin:0 0 0 6px}
+  main{padding:16px 14px 50px}
+  .kpis{grid-template-columns:minmax(0,1fr)}
+  .grid-f{grid-template-columns:1fr}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+@media print{
+  .nav,.no-print,.banner,.row-actions,.icon-btn{display:none!important}
+  .app{display:block}
+  body,.card,.kpi,.stamp{background:#fff!important;color:#000}
+  .card{break-inside:avoid;border-color:#999}
+}
+</style>
+
+<div class="app">
+  <aside class="nav" aria-label="Разделы">
+    <div class="brand">
+      <div class="brand-mark" aria-hidden="true">Н10</div>
+      <div><div class="brand-name">Неъмат 2010</div><div class="brand-sub">Бюджет организации</div></div>
+    </div>
+    <div id="navList" style="display:contents"></div>
+    <button class="btn primary nav-add" data-act="addTx">+ Операция</button>
+    <div class="nav-foot"><span class="dot" id="syncDot"></span><span id="syncText">Подключение…</span></div>
+  </aside>
+  <main>
+    <header class="stamp" id="stamp"></header>
+    <div id="demoBanner" hidden></div>
+    <section id="view" aria-live="polite"></section>
+  </main>
+</div>
+
+<dialog id="dlg">
+  <form id="dlgForm" method="dialog">
+    <header><h2 id="dlgTitle"></h2></header>
+    <div id="dlgBody"></div>
+    <footer>
+      <button type="submit" class="btn ghost" value="cancel" formnovalidate>Отмена</button>
+      <button type="submit" class="btn primary" id="dlgOk" value="ok">Сохранить</button>
+    </footer>
+  </form>
+</dialog>
+<div id="toast" class="toast" hidden></div>
+
+<script>
+(() => {
+'use strict';
+const $ = (s, r = document) => r.querySelector(s);
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const uid = () => Date.now().toString(36) + Math.random().toString(36).slice(2, 7);
+const sum = (arr, f) => arr.reduce((a, x) => a + (f(x) || 0), 0);
+const parseNum = v => { const n = parseFloat(String(v ?? '').replace(/[\s  ]/g, '').replace(',', '.')); return isFinite(n) ? n : NaN; };
+
+const SALARY = 'Зарплата';
+const DEFAULT_SETTINGS = {
+  rate: 9.5, openingTJS: 0, openingUSD: 0,
+  incomeCats: ['Аванс по договору', 'Оплата за этап', 'Окончательный расчёт', 'Прочие доходы'],
+  expenseCats: [SALARY, 'Аренда офиса', 'Налоги и сборы', 'Изыскания и обследования', 'Экспертиза и согласования', 'Печать и плоттер', 'Программное обеспечение', 'Транспорт и выезды на объект', 'Оборудование и оргтехника', 'Коммунальные услуги и связь', 'Банковские комиссии', 'Прочие расходы']
+};
+const SECTIONS = {
+  'ВК': 'Водопровод и канализация (внутренние)', 'НВК': 'Наружные сети водопровода и канализации', 'ОВ': 'Отопление, вентиляция и кондиционирование',
+  'ТС': 'Тепловые сети', 'ГС': 'Газоснабжение', 'ЭОМ': 'Электрооборудование и освещение', 'НЭС': 'Наружные электросети',
+  'СС': 'Слаботочные системы', 'АПС': 'Пожарная сигнализация'
+};
+const PSTAT = {
+  work: {l: 'В работе', c: 'st-work', i: '●'}, expertise: {l: 'На экспертизе', c: 'st-exp', i: '◐'},
+  done: {l: 'Сдан', c: 'st-done', i: '✓'}, paused: {l: 'Приостановлен', c: 'st-pause', i: '‖'}
+};
+const METHODS = {bank: 'Банк', cash: 'Наличные', card: 'Карта'};
+const MONTHS = ['январь','февраль','март','апрель','май','июнь','июль','август','сентябрь','октябрь','ноябрь','декабрь'];
+const MONTHS_S = ['янв','фев','мар','апр','май','июн','июл','авг','сен','окт','ноя','дек'];
+const PERIODS = {month: 'Этот месяц', prev: 'Прошлый месяц', quarter: 'Этот квартал', year: 'Этот год', prevyear: 'Прошлый год', all: 'Всё время', custom: 'Выбрать даты'};
+
+const ICON = {
+  edit: '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M10.5 2.5l3 3L6 13H3v-3z"/></svg>',
+  del: '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M3 4.5h10M6.5 4.5V3h3v1.5M4.5 4.5l.6 8.5h5.8l.6-8.5"/></svg>',
+  x: '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M4 4l8 8M12 4l-8 8"/></svg>'
+};
+
+/* ---------- State ---------- */
+const S = { ready: false, settings: mergeSettings(null), projects: {}, clients: {}, employees: {}, months: {} };
+const UI = {
+  view: 'overview', base: 'TJS', detail: null, clientDetail: null,
+  ops: {period: 'month', from: '', to: '', type: '', project: '', cat: '', q: ''},
+  rep: {period: 'year', from: '', to: ''},
+  proj: 'active', emp: {month: ymd(new Date()).slice(0, 7), inactive: false}
+};
+try { const b = localStorage.getItem('nemat-base'); if (b === 'USD' || b === 'TJS') UI.base = b; } catch (e) {}
+
+function mergeSettings(d) {
+  const s = Object.assign({}, DEFAULT_SETTINGS, d || {});
+  s.incomeCats = Array.isArray(s.incomeCats) && s.incomeCats.length ? [...s.incomeCats] : [...DEFAULT_SETTINGS.incomeCats];
+  s.expenseCats = Array.isArray(s.expenseCats) && s.expenseCats.length ? [...s.expenseCats] : [...DEFAULT_SETTINGS.expenseCats];
+  if (!s.expenseCats.includes(SALARY)) s.expenseCats.unshift(SALARY);
+  return s;
+}
+
+/* ---------- Storage: cloud db, or this browser ---------- */
+const LOCAL_KEY = 'nemat2010-budget-v1';
+const Store = {
+  db: null, mode: 'loading',
+  async init() {
+    let db = null;
+    try { if (window.claude && typeof window.claude.use === 'function') db = await window.claude.use('db'); } catch (e) { db = null; }
+    if (db) { this.db = db; this.mode = 'cloud'; this.subscribe(); }
+    else { this.mode = 'local'; this.loadLocal(); S.ready = true; render(); }
+    renderSync();
+  },
+  subscribe() {
+    const pending = new Set(['settings', 'projects', 'clients', 'employees', 'tx']);
+    const done = k => { pending.delete(k); if (!pending.size) S.ready = true; if (S.ready) render(); };
+    const onErr = e => { console.warn('db', e); this.mode = 'error'; renderSync(); };
+    this.db.doc('settings/main').onSnapshot(s => { S.settings = mergeSettings(s.exists ? s.data() : null); done('settings'); }, onErr);
+    for (const c of ['projects', 'clients', 'employees']) {
+      this.db.collection(c).onSnapshot(snap => { const o = {}; snap.docs.forEach(d => { o[d.id] = d.data(); }); S[c] = o; done(c); }, onErr);
+    }
+    this.db.collection('tx').onSnapshot(snap => {
+      const o = {}; snap.docs.forEach(d => { o[d.id] = Object.assign({}, (d.data() || {}).items || {}); }); S.months = o; done('tx');
+    }, onErr);
+  },
+  loadLocal() {
+    try {
+      const d = JSON.parse(localStorage.getItem(LOCAL_KEY) || 'null');
+      if (d) { S.settings = mergeSettings(d.settings); S.projects = d.projects || {}; S.clients = d.clients || {}; S.employees = d.employees || {}; S.months = d.months || {}; }
+    } catch (e) {}
+  },
+  saveLocal() {
+    try { localStorage.setItem(LOCAL_KEY, JSON.stringify({settings: S.settings, projects: S.projects, clients: S.clients, employees: S.employees, months: S.months})); } catch (e) {}
+  },
+  async write(fn) {
+    if (this.mode === 'local') { this.saveLocal(); return; }
+    try { await fn(this.db); }
+    catch (e) {
+      if (e && e.code === 'unavailable') { await new Promise(r => setTimeout(r, 600 + Math.random() * 800)); try { await fn(this.db); return; } catch (e2) { e = e2; } }
+      toast(e && e.code === 'quota_exceeded' ? 'Хранилище заполнено. Удалите ненужные записи и повторите.' : 'Не удалось сохранить. Проверьте интернет и повторите действие.', true);
+    }
+  },
+  saveEntity(coll, obj) { S[coll] = Object.assign({}, S[coll], {[obj.id]: obj}); render(); return this.write(db => db.collection(coll).doc(obj.id).set(obj)); },
+  deleteEntity(coll, id) { const o = Object.assign({}, S[coll]); delete o[id]; S[coll] = o; render(); return this.write(db => db.collection(coll).doc(id).delete()); },
+  saveSettings(s) { S.settings = mergeSettings(s); render(); return this.write(db => db.doc('settings/main').set(S.settings)); },
+  saveTx(tx, old) { return this.applyTx(tx ? [tx] : [], old ? [old] : []); },
+  applyTx(adds, removes) {
+    const touched = new Set();
+    for (const o of removes) { const m = o.date.slice(0, 7); if (S.months[m]) { S.months[m] = Object.assign({}, S.months[m]); delete S.months[m][o.id]; touched.add(m); } }
+    for (const t of adds) { const m = t.date.slice(0, 7); S.months[m] = Object.assign({}, S.months[m] || {}, {[t.id]: t}); touched.add(m); }
+    for (const m of touched) if (!Object.keys(S.months[m] || {}).length) delete S.months[m];
+    render();
+    return this.write(db => Promise.all([...touched].map(m => S.months[m] ? db.doc('tx/' + m).set({month: m, items: S.months[m]}) : db.doc('tx/' + m).delete())));
+  }
+};
+
+/* ---------- Money & dates ---------- */
+const nf = new Intl.NumberFormat('ru-RU', {minimumFractionDigits: 0, maximumFractionDigits: 2});
+const CUR = {TJS: 'смн', USD: '$'};
+function money(n, cur) { const s = nf.format(Math.round((n || 0) * 100) / 100); return cur === 'USD' ? '$ ' + s : s + ' смн'; }
+function signed(n, cur) { return (n > 0.004 ? '+' : n < -0.004 ? '−' : '') + money(Math.abs(n), cur); }
+function conv(amount, from, to, rate) { if (from === to) return amount; const r = rate > 0 ? rate : S.settings.rate; return from === 'USD' ? amount * r : amount / r; }
+const txIn = (t, cur) => conv(t.amount, t.currency, cur, t.rate);
+function compact(v) { const a = Math.abs(v); if (a >= 1e6) return nf.format(+(v / 1e6).toFixed(1)) + ' млн'; if (a >= 1e3) return nf.format(+(v / 1e3).toFixed(a >= 1e4 ? 0 : 1)) + ' тыс'; return nf.format(Math.round(v)); }
+function ymd(d) { return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0'); }
+const today = () => ymd(new Date());
+const fmtDate = s => s ? s.slice(8, 10) + '.' + s.slice(5, 7) + '.' + s.slice(0, 4) : '—';
+const monthLabel = m => MONTHS[+m.slice(5, 7) - 1] + ' ' + m.slice(0, 4);
+function periodRange(key, from, to) {
+  const d = new Date(), y = d.getFullYear(), m = d.getMonth();
+  const r = (a, b) => [ymd(a), ymd(b)];
+  switch (key) {
+    case 'month': return r(new Date(y, m, 1), new Date(y, m + 1, 0));
+    case 'prev': return r(new Date(y, m - 1, 1), new Date(y, m, 0));
+    case 'quarter': { const q = Math.floor(m / 3) * 3; return r(new Date(y, q, 1), new Date(y, q + 3, 0)); }
+    case 'year': return [y + '-01-01', y + '-12-31'];
+    case 'prevyear': return [(y - 1) + '-01-01', (y - 1) + '-12-31'];
+    case 'custom': return [from || '0000-01-01', to || '9999-12-31'];
+    default: return ['0000-01-01', '9999-12-31'];
+  }
+}
+function periodText(scope) {
+  const f = UI[scope];
+  if (f.period === 'custom') return (f.from ? 'с ' + fmtDate(f.from) : '') + (f.to ? ' по ' + fmtDate(f.to) : '') || 'всё время';
+  if (f.period === 'month') return monthLabel(today());
+  if (f.period === 'year') return new Date().getFullYear() + ' год';
+  if (f.period === 'prevyear') return (new Date().getFullYear() - 1) + ' год';
+  return PERIODS[f.period].toLowerCase();
+}
+
+/* ---------- Derived data ---------- */
+function allTx() {
+  const out = [];
+  for (const m in S.months) for (const id in S.months[m]) out.push(S.months[m][id]);
+  return out.sort((a, b) => (b.date || '').localeCompare(a.date || '') || (b.createdAt || 0) - (a.createdAt || 0));
+}
+function projStats(p) {
+  const txs = allTx().filter(t => t.projectId === p.id);
+  const received = sum(txs.filter(t => t.type === 'income'), t => txIn(t, p.currency));
+  const spent = sum(txs.filter(t => t.type === 'expense'), t => txIn(t, p.currency));
+  const contract = +p.contract || 0;
+  return {txs, received, spent, contract, debt: Math.max(0, contract - received), profit: received - spent, pct: contract > 0 ? Math.min(100, received / contract * 100) : 0};
+}
+const projName = id => { const p = S.projects[id]; return p ? p.name : ''; };
+const clientName = id => { const c = S.clients[id]; return c ? c.name : ''; };
+const sortedProjects = () => Object.values(S.projects).sort((a, b) => (b.code || '').localeCompare(a.code || ''));
+const sortedClients = () => Object.values(S.clients).sort((a, b) => (a.name || '').localeCompare(b.name || '', 'ru'));
+const sortedEmployees = () => Object.values(S.employees).sort((a, b) => (a.name || '').localeCompare(b.name || '', 'ru'));
+const hasDemo = () => Object.values(S.projects).some(x => x.demo) || Object.values(S.clients).some(x => x.demo) || Object.values(S.employees).some(x => x.demo) || allTx().some(t => t.demo) || S.settings.demo;
+
+/* ---------- Shell ---------- */
+const VIEWS = {overview: 'Обзор', ops: 'Операции', projects: 'Проекты', clients: 'Заказчики', employees: 'Сотрудники', reports: 'Отчёты', settings: 'Настройки'};
+function renderNav() {
+  $('#navList').innerHTML = Object.entries(VIEWS).map(([k, v]) => `<button class="nav-btn" data-act="nav" data-v="${k}" ${UI.view === k ? 'aria-current="page"' : ''}>${v}</button>`).join('');
+}
+function renderStamp() {
+  const d = new Date();
+  $('#stamp').innerHTML = `
+    <div><div class="stamp-l">Организация</div><div class="stamp-v big">Неъмат 2010</div></div>
+    <div><div class="stamp-l">Лист</div><div class="stamp-v">${VIEWS[UI.view]}</div></div>
+    <div><div class="stamp-l">Дата</div><div class="stamp-v num">${fmtDate(ymd(d))}</div></div>
+    <div><div class="stamp-l">Курс</div><div class="stamp-v num">1 $ = ${nf.format(S.settings.rate)} смн</div></div>
+    <div class="no-print"><div class="stamp-l">Итоги в</div><div class="cur-toggle" role="group" aria-label="Валюта итогов">
+      <button data-act="base" data-v="TJS" aria-pressed="${UI.base === 'TJS'}">смн</button><button data-act="base" data-v="USD" aria-pressed="${UI.base === 'USD'}">$</button>
+    </div></div>`;
+}
+function renderSync() {
+  const dot = $('#syncDot'), txt = $('#syncText');
+  dot.className = 'dot ' + (Store.mode === 'cloud' ? 'ok' : Store.mode === 'loading' ? '' : 'warn');
+  txt.textContent = Store.mode === 'cloud' ? 'Данные сохраняются в облаке' : Store.mode === 'local' ? 'Данные хранятся только в этом браузере' : Store.mode === 'error' ? 'Нет связи с хранилищем — обновите страницу' : 'Подключение…';
+}
+function renderDemo() {
+  const el = $('#demoBanner');
+  const show = S.ready && hasDemo();
+  el.hidden = !show;
+  if (show) el.innerHTML = `<div class="banner"><p><b>Сейчас показаны примерные данные</b> — вымышленные проекты, заказчики и операции, чтобы было видно, как всё работает. Когда будете готовы вести свой учёт, удалите их одним нажатием.</p><button class="btn" data-act="clearDemo">Удалить примеры</button></div>`;
+}
+function render() {
+  renderNav(); renderStamp(); renderDemo();
+  const v = $('#view');
+  if (!S.ready) { v.innerHTML = '<div class="loading">Загрузка данных…</div>'; return; }
+  const fn = {overview: renderOverview, ops: renderOps, projects: renderProjects, clients: renderClients, employees: renderEmployees, reports: renderReports, settings: renderSettings}[UI.view];
+  v.innerHTML = fn();
+  if (UI.view === 'ops') renderOpsTable();
+}
+
+/* ---------- Shared bits ---------- */
+const typeChip = t => t.type === 'income' ? '<span class="chip inc">↓ Доход</span>' : '<span class="chip exp">↑ Расход</span>';
+const statusChip = s => { const x = PSTAT[s] || PSTAT.work; return `<span class="chip ${x.c}"><span aria-hidden="true">${x.i}</span>${x.l}</span>`; };
+const marks = arr => `<span class="marks">${(arr || []).map(m => `<span class="mark" title="${esc(SECTIONS[m] || m)}">${esc(m)}</span>`).join('')}</span>`;
+const amountCell = t => `<span class="num ${t.type === 'income' ? 'pos' : ''}">${t.type === 'income' ? '+' : '−'}${money(t.amount, t.currency)}</span>`;
+function periodControl(scope) {
+  const f = UI[scope];
+  return `<label class="fld"><span>Период</span><select data-f="${scope}.period">${Object.entries(PERIODS).map(([k, v]) => `<option value="${k}" ${f.period === k ? 'selected' : ''}>${v}</option>`).join('')}</select></label>
+  ${f.period === 'custom' ? `<label class="fld"><span>С</span><input type="date" data-f="${scope}.from" value="${esc(f.from)}"></label><label class="fld"><span>По</span><input type="date" data-f="${scope}.to" value="${esc(f.to)}"></label>` : ''}`;
+}
+function txTable(txs, opts = {}) {
+  if (!txs.length) return `<div class="empty">${opts.empty || 'Операций пока нет'}</div>`;
+  return `<div class="tbl-wrap"><table class="tbl"><thead><tr><th>Дата</th><th>Тип</th><th>Статья</th>${opts.noProject ? '' : '<th>Проект</th>'}<th>Комментарий</th><th class="r">Сумма</th>${opts.compact ? '' : '<th></th>'}</tr></thead><tbody>
+  ${txs.map(t => {
+    const emp = t.employeeId && S.employees[t.employeeId] ? S.employees[t.employeeId].name : '';
+    const p = S.projects[t.projectId];
+    return `<tr>
+      <td class="num">${fmtDate(t.date)}</td>
+      <td>${typeChip(t)}</td>
+      <td><div class="cell-main">${esc(t.category)}</div>${emp ? `<div class="cell-sub">${esc(emp)}</div>` : ''}</td>
+      ${opts.noProject ? '' : `<td>${p ? `<div class="code">${esc(p.code)}</div><div class="cell-sub" style="max-width:260px">${esc(p.name)}</div>` : '<span class="muted">Общие</span>'}</td>`}
+      <td style="max-width:280px">${esc(t.note) || '<span class="muted">—</span>'}<div class="cell-sub">${METHODS[t.method] || ''}${t.currency === 'USD' ? ` · курс ${nf.format(t.rate || S.settings.rate)}` : ''}</div></td>
+      <td class="r">${amountCell(t)}</td>
+      ${opts.compact ? '' : `<td><div class="row-actions"><button class="icon-btn" data-act="editTx" data-id="${t.id}" data-m="${t.date.slice(0, 7)}" aria-label="Изменить">${ICON.edit}</button><button class="icon-btn del" data-act="delTx" data-id="${t.id}" data-m="${t.date.slice(0, 7)}" aria-label="Удалить">${ICON.del}</button></div></td>`}
+    </tr>`;
+  }).join('')}</tbody></table></div>`;
+}
+
+/* ---------- Overview ---------- */
+const charts = {};
+function renderOverview() {
+  const base = UI.base, st = S.settings, txs = allTx();
+  const bal = {TJS: +st.openingTJS || 0, USD: +st.openingUSD || 0};
+  txs.forEach(t => { if (bal[t.currency] !== undefined) bal[t.currency] += t.type === 'income' ? t.amount : -t.amount; });
+  const [mf, mt] = periodRange('month');
+  const mTx = txs.filter(t => t.date >= mf && t.date <= mt);
+  const mi = sum(mTx.filter(t => t.type === 'income'), t => txIn(t, base));
+  const me = sum(mTx.filter(t => t.type === 'expense'), t => txIn(t, base));
+  const projs = Object.values(S.projects);
+  const debtors = projs.map(p => ({p, s: projStats(p)})).filter(x => x.s.debt > 0.004 && x.p.status !== 'paused');
+  const recv = sum(debtors, x => conv(x.s.debt, x.p.currency, base));
+
+  // 12 months
+  const now = new Date(); const series = [];
+  for (let i = 11; i >= 0; i--) {
+    const d = new Date(now.getFullYear(), now.getMonth() - i, 1); const key = ymd(d).slice(0, 7);
+    const items = Object.values(S.months[key] || {});
+    series.push({key, label: MONTHS_S[d.getMonth()], inc: sum(items.filter(t => t.type === 'income'), t => txIn(t, base)), exp: sum(items.filter(t => t.type === 'expense'), t => txIn(t, base))});
+  }
+  charts.main = {series, base};
+
+  const y = String(now.getFullYear());
+  const byCat = {};
+  txs.filter(t => t.type === 'expense' && t.date.startsWith(y)).forEach(t => { byCat[t.category] = (byCat[t.category] || 0) + txIn(t, base); });
+  const cats = Object.entries(byCat).sort((a, b) => b[1] - a[1]);
+  const catTotal = sum(cats, c => c[1]);
+  const catMax = cats.length ? cats[0][1] : 1;
+
+  const active = projs.filter(p => p.status === 'work' || p.status === 'expertise').sort((a, b) => (a.deadline || '9').localeCompare(b.deadline || '9'));
+
+  return `
+  <div class="kpis">
+    <div class="kpi"><div class="kpi-l">Остаток, сомони</div><div class="kpi-v">${money(bal.TJS, 'TJS')}</div><div class="kpi-s">касса и счета</div></div>
+    <div class="kpi"><div class="kpi-l">Остаток, доллары</div><div class="kpi-v">${money(bal.USD, 'USD')}</div><div class="kpi-s">≈ ${money(conv(bal.USD, 'USD', 'TJS'), 'TJS')} по курсу</div></div>
+    <div class="kpi"><div class="kpi-l">Прибыль за ${MONTHS[now.getMonth()]}</div><div class="kpi-v ${mi - me < 0 ? 'neg' : ''}">${signed(mi - me, base)}</div><div class="kpi-s">доходы ${money(mi, base)} · расходы ${money(me, base)}</div></div>
+    <div class="kpi"><div class="kpi-l">Должны заказчики</div><div class="kpi-v">${money(recv, base)}</div><div class="kpi-s">${debtors.length ? 'по ' + debtors.length + ' ' + plural(debtors.length, 'проекту', 'проектам', 'проектам') : 'долгов нет'}</div></div>
+  </div>
+
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-head"><div><h2>Доходы и расходы по месяцам</h2><div class="sub">последние 12 месяцев, в ${base === 'USD' ? 'долларах' : 'сомони'}</div></div>
+        <div class="legend"><span><i style="background:var(--s-inc)"></i>Доходы</span><span><i style="background:var(--s-exp)"></i>Расходы</span></div></div>
+      <div class="chart-wrap" id="chartMain">${barChart(series)}<div class="tip" hidden></div></div>
+    </div>
+    <div class="card">
+      <div class="card-head"><div><h2>Куда уходят деньги</h2><div class="sub">расходы за ${y} год · ${money(catTotal, base)}</div></div></div>
+      ${cats.length ? `<div class="hbars">${cats.slice(0, 8).map(([c, v]) => `<div class="hbar-row"><span>${esc(c)}</span><span class="num">${money(v, base)} <span class="muted">${Math.round(v / catTotal * 100)}%</span></span><div class="hbar-track"><div class="hbar-fill" style="width:${Math.max(1, v / catMax * 100)}%"></div></div></div>`).join('')}</div>` : '<div class="empty">Расходов в этом году пока нет</div>'}
+    </div>
+  </div>
+
+  <div class="grid-2e">
+    <div class="card">
+      <div class="card-head"><h2>Проекты в работе</h2><button class="link" data-act="nav" data-v="projects">Все проекты →</button></div>
+      ${active.length ? `<div class="tbl-wrap"><table class="tbl"><thead><tr><th>Объект</th><th>Оплачено</th><th class="r">Остаток</th></tr></thead><tbody>
+      ${active.map(p => { const s = projStats(p); return `<tr class="click" data-act="openProject" data-id="${p.id}">
+        <td><div class="code">${esc(p.code)} · ${statusChip(p.status)}</div><div class="cell-main">${esc(p.name)}</div><div class="cell-sub">${esc(clientName(p.clientId))}</div></td>
+        <td style="min-width:120px"><div class="progress" style="margin-top:6px"><span style="width:${s.pct}%"></span></div><div class="cell-sub">${Math.round(s.pct)}% из ${money(s.contract, p.currency)}</div></td>
+        <td class="r num">${money(s.debt, p.currency)}</td></tr>`; }).join('')}
+      </tbody></table></div>` : '<div class="empty">Активных проектов нет. <button class="link" data-act="addProject">Добавить проект</button></div>'}
+    </div>
+    <div class="card">
+      <div class="card-head"><h2>Последние операции</h2><button class="link" data-act="nav" data-v="ops">Все операции →</button></div>
+      ${recentList(txs.slice(0, 7))}
+    </div>
+  </div>`;
+}
+function recentList(txs) {
+  if (!txs.length) return '<div class="empty">Операций пока нет. <button class="link" data-act="addTx">Добавить первую</button></div>';
+  return `<div class="tbl-wrap"><table class="tbl"><tbody>${txs.map(t => {
+    const p = S.projects[t.projectId]; const emp = S.employees[t.employeeId];
+    return `<tr class="click" data-act="editTx" data-id="${t.id}" data-m="${t.date.slice(0, 7)}"><td class="num muted" style="width:1%">${fmtDate(t.date).slice(0, 5)}</td>
+    <td><div class="cell-main">${esc(t.category)}</div><div class="cell-sub">${esc(emp ? emp.name : p ? p.code + ' · ' + p.name : t.note || 'Общие')}</div></td><td class="r">${amountCell(t)}</td></tr>`;
+  }).join('')}</tbody></table></div>`;
+}
+function plural(n, one, few, many) { const a = n % 10, b = n % 100; return a === 1 && b !== 11 ? one : a >= 2 && a <= 4 && (b < 12 || b > 14) ? few : many; }
+
+function niceMax(v) { if (v <= 0) return 1; const p = Math.pow(10, Math.floor(Math.log10(v))); const n = v / p; return (n <= 1 ? 1 : n <= 2 ? 2 : n <= 2.5 ? 2.5 : n <= 5 ? 5 : 10) * p; }
+function barPath(x, y, w, h, r) { if (h <= 0.5) return ''; r = Math.min(r, w / 2, h); return `M${x},${y + h}V${y + r}Q${x},${y} ${x + r},${y}H${x + w - r}Q${x + w},${y} ${x + w},${y + r}V${y + h}Z`; }
+function barChart(series) {
+  const W = 680, H = 250, L = 58, R = 8, T = 12, B = 26, pw = W - L - R, ph = H - T - B;
+  const max = niceMax(Math.max(1, ...series.map(s => Math.max(s.inc, s.exp))));
+  const yv = v => T + ph - v / max * ph;
+  const gw = pw / series.length, bw = Math.min(16, (gw - 12) / 2);
+  let g = '';
+  for (let i = 0; i <= 4; i++) { const v = max / 4 * i, yy = yv(v); g += `<line x1="${L}" x2="${W - R}" y1="${yy}" y2="${yy}" stroke="var(${i ? '--grid' : '--line-strong'})" stroke-width="1"/><text x="${L - 8}" y="${yy + 4}" text-anchor="end">${compact(v)}</text>`; }
+  series.forEach((s, i) => {
+    const cx = L + gw * i + gw / 2;
+    g += `<path d="${barPath(cx - bw - 1, yv(s.inc), bw, T + ph - yv(s.inc), 3)}" fill="var(--s-inc)"/>`;
+    g += `<path d="${barPath(cx + 1, yv(s.exp), bw, T + ph - yv(s.exp), 3)}" fill="var(--s-exp)"/>`;
+    g += `<text x="${cx}" y="${H - 8}" text-anchor="middle">${s.label}</text>`;
+  });
+  series.forEach((s, i) => { g += `<rect class="hit" data-chart="main" data-i="${i}" x="${L + gw * i}" y="${T}" width="${gw}" height="${ph}"/>`; });
+  return `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Доходы и расходы по месяцам">${g}</svg>`;
+}
+
+/* ---------- Operations ---------- */
+function renderOps() {
+  const f = UI.ops, s = S.settings;
+  const cats = f.type === 'income' ? s.incomeCats : f.type === 'expense' ? s.expenseCats : [...s.incomeCats, ...s.expenseCats];
+  return `
+  <div class="page-head"><div><h1>Операции</h1><p>Все поступления и платежи организации</p></div>
+    <div class="actions"><button class="btn" data-act="addTx" data-type="expense">+ Расход</button><button class="btn primary" data-act="addTx" data-type="income">+ Доход</button></div></div>
+  <div class="card">
+    <div class="filters">
+      ${periodControl('ops')}
+      <label class="fld"><span>Тип</span><select data-f="ops.type"><option value="">Все</option><option value="income" ${f.type === 'income' ? 'selected' : ''}>Доходы</option><option value="expense" ${f.type === 'expense' ? 'selected' : ''}>Расходы</option></select></label>
+      <label class="fld"><span>Статья</span><select data-f="ops.cat"><option value="">Все статьи</option>${cats.map(c => `<option ${f.cat === c ? 'selected' : ''}>${esc(c)}</option>`).join('')}</select></label>
+      <label class="fld"><span>Проект</span><select data-f="ops.project"><option value="">Все проекты</option><option value="none" ${f.project === 'none' ? 'selected' : ''}>Общие (без проекта)</option>${sortedProjects().map(p => `<option value="${p.id}" ${f.project === p.id ? 'selected' : ''}>${esc(p.code)} · ${esc(p.name.slice(0, 40))}</option>`).join('')}</select></label>
+      <label class="fld grow"><span>Поиск</span><input type="search" data-f="ops.q" value="${esc(f.q)}" placeholder="Комментарий, сотрудник, заказчик…"></label>
+    </div>
+    <div id="opsTable"></div>
+  </div>`;
+}
+function renderOpsTable() {
+  const el = $('#opsTable'); if (!el) return;
+  const f = UI.ops, base = UI.base, [from, to] = periodRange(f.period, f.from, f.to), q = f.q.trim().toLowerCase();
+  const list = allTx().filter(t => t.date >= from && t.date <= to
+    && (!f.type || t.type === f.type) && (!f.cat || t.category === f.cat)
+    && (!f.project || (f.project === 'none' ? !S.projects[t.projectId] : t.projectId === f.project))
+    && (!q || [t.note, t.category, (S.employees[t.employeeId] || {}).name, projName(t.projectId), (S.projects[t.projectId] || {}).code, clientName((S.projects[t.projectId] || {}).clientId)].join(' ').toLowerCase().includes(q)));
+  const inc = sum(list.filter(t => t.type === 'income'), t => txIn(t, base)), exp = sum(list.filter(t => t.type === 'expense'), t => txIn(t, base));
+  el.innerHTML = `<div class="totals"><span>Найдено: <b>${list.length}</b></span><span>Доходы: <b class="pos">${money(inc, base)}</b></span><span>Расходы: <b>${money(exp, base)}</b></span><span>Итого: <b class="${inc - exp < 0 ? 'neg' : ''}">${signed(inc - exp, base)}</b></span></div>
+  ${txTable(list, {empty: 'За выбранный период операций нет'})}`;
+}
+
+/* ---------- Projects ---------- */
+function renderProjects() {
+  if (UI.detail && S.projects[UI.detail]) return renderProjectDetail(S.projects[UI.detail]);
+  UI.detail = null;
+  const base = UI.base;
+  const filt = {active: p => p.status === 'work' || p.status === 'expertise', done: p => p.status === 'done', paused: p => p.status === 'paused', all: () => true}[UI.proj];
+  const rows = sortedProjects().filter(filt).map(p => ({p, s: projStats(p)}));
+  const totDebt = sum(rows, r => conv(r.s.debt, r.p.currency, base)), totContract = sum(rows, r => conv(r.s.contract, r.p.currency, base));
+  const counts = {active: 0, done: 0, paused: 0, all: 0};
+  Object.values(S.projects).forEach(p => { counts.all++; if (p.status === 'done') counts.done++; else if (p.status === 'paused') counts.paused++; else counts.active++; });
+  return `
+  <div class="page-head"><div><h1>Проекты</h1><p>Объекты проектирования: договор, оплаты, расходы и прибыль по каждому</p></div>
+    <div class="actions"><button class="btn primary" data-act="addProject">+ Новый проект</button></div></div>
+  <div class="card">
+    <div class="filters" style="justify-content:space-between">
+      <div class="tabs">${[['active', 'В работе'], ['done', 'Сданные'], ['paused', 'Приостановленные'], ['all', 'Все']].map(([k, l]) => `<button class="tab" data-act="projFilter" data-v="${k}" aria-pressed="${UI.proj === k}">${l} <span class="muted">${counts[k]}</span></button>`).join('')}</div>
+      <div class="totals" style="margin:0"><span>Сумма договоров: <b>${money(totContract, base)}</b></span><span>Остаток к получению: <b>${money(totDebt, base)}</b></span></div>
+    </div>
+    ${rows.length ? `<div class="tbl-wrap"><table class="tbl"><thead><tr><th>Объект</th><th>Разделы</th><th>Статус</th><th class="r">Договор</th><th>Оплачено</th><th class="r">Долг заказчика</th><th class="r">Расходы</th><th class="r">Прибыль</th></tr></thead><tbody>
+    ${rows.map(({p, s}) => `<tr class="click" data-act="openProject" data-id="${p.id}">
+      <td style="min-width:240px"><div class="code">${esc(p.code)}</div><div class="cell-main">${esc(p.name)}</div><div class="cell-sub">${esc(clientName(p.clientId)) || 'Заказчик не указан'}${p.deadline ? ' · срок ' + fmtDate(p.deadline) : ''}</div></td>
+      <td>${marks(p.sections)}</td><td>${statusChip(p.status)}</td>
+      <td class="r num">${money(s.contract, p.currency)}</td>
+      <td style="min-width:110px"><div class="progress" style="margin-top:7px"><span style="width:${s.pct}%"></span></div><div class="cell-sub">${Math.round(s.pct)}% · ${money(s.received, p.currency)}</div></td>
+      <td class="r num">${s.debt > 0.004 ? money(s.debt, p.currency) : '<span class="muted">—</span>'}</td>
+      <td class="r num">${money(s.spent, p.currency)}</td>
+      <td class="r num ${s.profit < 0 ? 'neg' : ''}">${signed(s.profit, p.currency)}</td></tr>`).join('')}
+    </tbody></table></div>` : `<div class="empty">В этой группе проектов нет. <button class="link" data-act="addProject">Добавить проект</button></div>`}
+  </div>`;
+}
+function renderProjectDetail(p) {
+  const s = projStats(p), c = S.clients[p.clientId];
+  const margin = s.received > 0 ? Math.round(s.profit / s.received * 100) : 0;
+  return `
+  <button class="link back" data-act="closeDetail">← Все проекты</button>
+  <div class="page-head"><div class="detail-head"><div class="code">${esc(p.code)}</div><h1>${esc(p.name)}</h1>
+    <div class="meta">${statusChip(p.status)}${marks(p.sections)}<span>Заказчик: ${c ? `<button class="link" data-act="openClient" data-id="${c.id}">${esc(c.name)}</button>` : '—'}</span>${p.start ? `<span>Начало: <span class="num">${fmtDate(p.start)}</span></span>` : ''}${p.deadline ? `<span>Срок сдачи: <span class="num">${fmtDate(p.deadline)}</span></span>` : ''}</div>
+    ${p.note ? `<p>${esc(p.note)}</p>` : ''}</div>
+    <div class="actions"><button class="btn" data-act="editProject" data-id="${p.id}">Изменить</button><button class="btn" data-act="addTx" data-type="expense" data-project="${p.id}">+ Расход</button><button class="btn primary" data-act="addTx" data-type="income" data-project="${p.id}">+ Оплата от заказчика</button></div></div>
+  <div class="kpis">
+    <div class="kpi"><div class="kpi-l">Сумма договора</div><div class="kpi-v">${money(s.contract, p.currency)}</div><div class="progress" style="margin-top:4px"><span style="width:${s.pct}%"></span></div><div class="kpi-s">оплачено ${Math.round(s.pct)}%</div></div>
+    <div class="kpi"><div class="kpi-l">Получено</div><div class="kpi-v pos">${money(s.received, p.currency)}</div><div class="kpi-s">осталось получить ${money(s.debt, p.currency)}</div></div>
+    <div class="kpi"><div class="kpi-l">Расходы по проекту</div><div class="kpi-v">${money(s.spent, p.currency)}</div><div class="kpi-s">изыскания, экспертиза, печать и др.</div></div>
+    <div class="kpi"><div class="kpi-l">Прибыль</div><div class="kpi-v ${s.profit < 0 ? 'neg' : ''}">${signed(s.profit, p.currency)}</div><div class="kpi-s">рентабельность ${margin}%</div></div>
+  </div>
+  <div class="card"><div class="card-head"><h2>Операции по проекту</h2><span class="sub">${s.txs.length} ${plural(s.txs.length, 'операция', 'операции', 'операций')}</span></div>${txTable(s.txs, {noProject: true, empty: 'По этому проекту операций пока нет'})}</div>
+  <div class="no-print" style="display:flex;justify-content:flex-end"><button class="btn ghost sm" data-act="delProject" data-id="${p.id}" style="color:var(--neg)">Удалить проект</button></div>`;
+}
+
+/* ---------- Clients ---------- */
+function clientStats(c) {
+  const ps = Object.values(S.projects).filter(p => p.clientId === c.id).map(p => ({p, s: projStats(p)}));
+  const b = UI.base;
+  return {ps, contract: sum(ps, x => conv(x.s.contract, x.p.currency, b)), paid: sum(ps, x => conv(x.s.received, x.p.currency, b)), debt: sum(ps, x => conv(x.s.debt, x.p.currency, b))};
+}
+function renderClients() {
+  if (UI.clientDetail && S.clients[UI.clientDetail]) return renderClientDetail(S.clients[UI.clientDetail]);
+  UI.clientDetail = null;
+  const base = UI.base, rows = sortedClients().map(c => ({c, s: clientStats(c)})).sort((a, b) => b.s.debt - a.s.debt);
+  const tot = {contract: sum(rows, r => r.s.contract), paid: sum(rows, r => r.s.paid), debt: sum(rows, r => r.s.debt)};
+  return `
+  <div class="page-head"><div><h1>Заказчики</h1><p>Кто сколько заказал, оплатил и сколько ещё должен</p></div>
+    <div class="actions"><button class="btn primary" data-act="addClient">+ Новый заказчик</button></div></div>
+  <div class="card">
+    ${rows.length ? `<div class="tbl-wrap"><table class="tbl"><thead><tr><th>Заказчик</th><th>Контакт</th><th class="r">Проектов</th><th class="r">Сумма договоров</th><th class="r">Оплачено</th><th class="r">Долг</th><th></th></tr></thead><tbody>
+    ${rows.map(({c, s}) => `<tr class="click" data-act="openClient" data-id="${c.id}">
+      <td><div class="cell-main">${esc(c.name)}</div>${c.inn ? `<div class="cell-sub">ИНН ${esc(c.inn)}</div>` : ''}</td>
+      <td>${esc(c.contact) || '<span class="muted">—</span>'}<div class="cell-sub num">${esc(c.phone)}</div></td>
+      <td class="r num">${s.ps.length}</td><td class="r num">${money(s.contract, base)}</td><td class="r num">${money(s.paid, base)}</td>
+      <td class="r num">${s.debt > 0.004 ? `<b>${money(s.debt, base)}</b>` : '<span class="muted">—</span>'}</td>
+      <td><div class="row-actions"><button class="icon-btn" data-act="editClient" data-id="${c.id}" aria-label="Изменить">${ICON.edit}</button></div></td></tr>`).join('')}
+    </tbody><tfoot><tr><td colspan="3">Итого</td><td class="r num">${money(tot.contract, base)}</td><td class="r num">${money(tot.paid, base)}</td><td class="r num">${money(tot.debt, base)}</td><td></td></tr></tfoot></table></div>`
+    : '<div class="empty">Заказчиков пока нет. <button class="link" data-act="addClient">Добавить заказчика</button></div>'}
+  </div>`;
+}
+function renderClientDetail(c) {
+  const s = clientStats(c), base = UI.base;
+  return `
+  <button class="link back" data-act="closeClient">← Все заказчики</button>
+  <div class="page-head"><div class="detail-head"><h1>${esc(c.name)}</h1>
+    <div class="meta">${c.contact ? `<span>${esc(c.contact)}</span>` : ''}${c.phone ? `<span class="num">${esc(c.phone)}</span>` : ''}${c.inn ? `<span>ИНН ${esc(c.inn)}</span>` : ''}</div>${c.note ? `<p>${esc(c.note)}</p>` : ''}</div>
+    <div class="actions"><button class="btn" data-act="editClient" data-id="${c.id}">Изменить</button><button class="btn primary" data-act="addProject" data-client="${c.id}">+ Проект для заказчика</button></div></div>
+  <div class="kpis">
+    <div class="kpi"><div class="kpi-l">Проектов</div><div class="kpi-v">${s.ps.length}</div></div>
+    <div class="kpi"><div class="kpi-l">Сумма договоров</div><div class="kpi-v">${money(s.contract, base)}</div></div>
+    <div class="kpi"><div class="kpi-l">Оплачено</div><div class="kpi-v pos">${money(s.paid, base)}</div></div>
+    <div class="kpi"><div class="kpi-l">Долг</div><div class="kpi-v">${money(s.debt, base)}</div></div>
+  </div>
+  <div class="card"><div class="card-head"><h2>Проекты заказчика</h2></div>
+  ${s.ps.length ? `<div class="tbl-wrap"><table class="tbl"><thead><tr><th>Объект</th><th>Статус</th><th class="r">Договор</th><th class="r">Оплачено</th><th class="r">Долг</th></tr></thead><tbody>
+  ${s.ps.map(({p, s: ps}) => `<tr class="click" data-act="openProject" data-id="${p.id}"><td><div class="code">${esc(p.code)}</div><div class="cell-main">${esc(p.name)}</div></td><td>${statusChip(p.status)}</td><td class="r num">${money(ps.contract, p.currency)}</td><td class="r num">${money(ps.received, p.currency)}</td><td class="r num">${money(ps.debt, p.currency)}</td></tr>`).join('')}
+  </tbody></table></div>` : '<div class="empty">У этого заказчика пока нет проектов</div>'}</div>
+  <div class="no-print" style="display:flex;justify-content:flex-end"><button class="btn ghost sm" data-act="delClient" data-id="${c.id}" style="color:var(--neg)">Удалить заказчика</button></div>`;
+}
+
+/* ---------- Employees ---------- */
+function renderEmployees() {
+  const m = UI.emp.month, all = sortedEmployees(), list = all.filter(e => UI.emp.inactive || e.active !== false);
+  const monthTx = Object.values(S.months[m] || {}).filter(t => t.type === 'expense' && t.category === SALARY);
+  const base = UI.base;
+  const rows = list.map(e => { const paid = sum(monthTx.filter(t => t.employeeId === e.id), t => txIn(t, e.currency || 'TJS')); return {e, paid, sal: +e.salary || 0}; });
+  const fot = sum(rows.filter(r => r.e.active !== false), r => conv(r.sal, r.e.currency || 'TJS', base));
+  const paidTot = sum(monthTx, t => txIn(t, base));
+  const hidden = all.length - list.length;
+  return `
+  <div class="page-head"><div><h1>Сотрудники</h1><p>Оклады и выплаты зарплаты по месяцам</p></div>
+    <div class="actions"><button class="btn primary" data-act="addEmp">+ Сотрудник</button></div></div>
+  <div class="card">
+    <div class="filters" style="justify-content:space-between">
+      <label class="fld"><span>Месяц</span><input type="month" data-f="emp.month" value="${esc(m)}"></label>
+      <div class="totals" style="margin:0"><span>Фонд оплаты труда: <b>${money(fot, base)}</b></span><span>Выплачено за ${monthLabel(m + '-01')}: <b>${money(paidTot, base)}</b></span></div>
+    </div>
+    ${rows.length ? `<div class="tbl-wrap"><table class="tbl"><thead><tr><th>Сотрудник</th><th class="r">Оклад</th><th class="r">Выплачено</th><th>Статус</th><th></th></tr></thead><tbody>
+    ${rows.map(({e, paid, sal}) => {
+      const cur = e.currency || 'TJS'; const left = Math.max(0, sal - paid);
+      const st = e.active === false ? '<span class="chip">Не работает</span>' : paid >= sal - 0.004 && sal > 0 ? '<span class="chip st-done">✓ Выплачено</span>' : paid > 0 ? `<span class="chip st-exp">◐ Частично · осталось ${money(left, cur)}</span>` : '<span class="chip exp">○ Не выплачено</span>';
+      return `<tr><td><div class="cell-main">${esc(e.name)}</div><div class="cell-sub">${esc(e.position) || '—'}</div></td>
+      <td class="r num">${money(sal, cur)}</td><td class="r num">${money(paid, cur)}</td><td>${st}</td>
+      <td><div class="row-actions">${e.active !== false && left > 0.004 ? `<button class="btn sm" data-act="payEmp" data-id="${e.id}">Выплатить</button>` : ''}<button class="icon-btn" data-act="editEmp" data-id="${e.id}" aria-label="Изменить">${ICON.edit}</button><button class="icon-btn del" data-act="delEmp" data-id="${e.id}" aria-label="Удалить">${ICON.del}</button></div></td></tr>`;
+    }).join('')}</tbody></table></div>` : '<div class="empty">Сотрудников пока нет. <button class="link" data-act="addEmp">Добавить сотрудника</button></div>'}
+    ${hidden || UI.emp.inactive ? `<div style="margin-top:10px"><button class="link" data-act="toggleInactive">${UI.emp.inactive ? 'Скрыть уволенных' : 'Показать уволенных (' + hidden + ')'}</button></div>` : ''}
+  </div>
+  <div class="card"><div class="card-head"><h2>Выплаты за ${monthLabel(m + '-01')}</h2></div>${txTable(Object.values(S.months[m] || {}).filter(t => t.category === SALARY).sort((a, b) => b.date.localeCompare(a.date)), {empty: 'В этом месяце зарплата ещё не выплачивалась'})}</div>`;
+}
+
+/* ---------- Reports ---------- */
+function renderReports() {
+  const base = UI.base, [from, to] = periodRange(UI.rep.period, UI.rep.from, UI.rep.to);
+  const txs = allTx().filter(t => t.date >= from && t.date <= to);
+  const inc = sum(txs.filter(t => t.type === 'income'), t => txIn(t, base)), exp = sum(txs.filter(t => t.type === 'expense'), t => txIn(t, base));
+  const profit = inc - exp, margin = inc > 0 ? Math.round(profit / inc * 100) : 0;
+  const cat = {income: {}, expense: {}};
+  txs.forEach(t => { cat[t.type][t.category] = (cat[t.type][t.category] || 0) + txIn(t, base); });
+  const catRows = (type, total) => Object.entries(cat[type]).sort((a, b) => b[1] - a[1]).map(([c, v]) => `<tr><td>${esc(c)}</td><td class="r num">${money(v, base)}</td><td class="r num muted">${total ? Math.round(v / total * 100) : 0}%</td></tr>`).join('') || '<tr><td colspan="3" class="muted">Нет операций</td></tr>';
+  const byP = {};
+  txs.forEach(t => { const k = S.projects[t.projectId] ? t.projectId : ''; byP[k] = byP[k] || {inc: 0, exp: 0}; byP[k][t.type === 'income' ? 'inc' : 'exp'] += txIn(t, base); });
+  const pRows = Object.entries(byP).sort((a, b) => (a[0] === '') - (b[0] === '') || (b[1].inc - b[1].exp) - (a[1].inc - a[1].exp));
+  const byM = {};
+  txs.forEach(t => { const k = t.date.slice(0, 7); byM[k] = byM[k] || {inc: 0, exp: 0}; byM[k][t.type === 'income' ? 'inc' : 'exp'] += txIn(t, base); });
+  let run = 0;
+  const mRows = Object.keys(byM).sort().map(k => { const r = byM[k]; run += r.inc - r.exp; return `<tr><td style="text-transform:capitalize">${monthLabel(k)}</td><td class="r num">${money(r.inc, base)}</td><td class="r num">${money(r.exp, base)}</td><td class="r num ${r.inc - r.exp < 0 ? 'neg' : ''}">${signed(r.inc - r.exp, base)}</td><td class="r num ${run < 0 ? 'neg' : ''}">${signed(run, base)}</td></tr>`; }).join('');
+  return `
+  <div class="page-head"><div><h1>Отчёты</h1><p>Доходы, расходы и прибыль за ${periodText('rep')} · в ${base === 'USD' ? 'долларах' : 'сомони'}</p></div>
+    <div class="actions no-print"><button class="btn" data-act="print">Распечатать</button></div></div>
+  <div class="filters no-print">${periodControl('rep')}</div>
+  <div class="kpis">
+    <div class="kpi"><div class="kpi-l">Доходы</div><div class="kpi-v pos">${money(inc, base)}</div></div>
+    <div class="kpi"><div class="kpi-l">Расходы</div><div class="kpi-v">${money(exp, base)}</div></div>
+    <div class="kpi"><div class="kpi-l">Прибыль</div><div class="kpi-v ${profit < 0 ? 'neg' : ''}">${signed(profit, base)}</div></div>
+    <div class="kpi"><div class="kpi-l">Рентабельность</div><div class="kpi-v">${margin}%</div><div class="kpi-s">прибыль ÷ доходы</div></div>
+  </div>
+  <div class="grid-2e">
+    <div class="card"><div class="card-head"><h2>По статьям</h2></div><div class="tbl-wrap"><table class="tbl"><thead><tr><th>Статья</th><th class="r">Сумма</th><th class="r">Доля</th></tr></thead><tbody>
+      <tr class="sec"><td colspan="3">Доходы</td></tr>${catRows('income', inc)}
+      <tr class="sec"><td colspan="3">Расходы</td></tr>${catRows('expense', exp)}
+    </tbody><tfoot><tr><td>Прибыль</td><td class="r num ${profit < 0 ? 'neg' : ''}">${signed(profit, base)}</td><td></td></tr></tfoot></table></div></div>
+    <div class="card"><div class="card-head"><h2>По проектам</h2></div>${pRows.length ? `<div class="tbl-wrap"><table class="tbl"><thead><tr><th>Проект</th><th class="r">Доходы</th><th class="r">Расходы</th><th class="r">Итог</th></tr></thead><tbody>
+      ${pRows.map(([id, r]) => { const p = S.projects[id]; return `<tr ${p ? `class="click" data-act="openProject" data-id="${id}"` : ''}><td>${p ? `<div class="code">${esc(p.code)}</div><div class="cell-sub" style="max-width:220px">${esc(p.name)}</div>` : '<span class="cell-main">Общие расходы</span><div class="cell-sub">зарплата, аренда, налоги…</div>'}</td><td class="r num">${money(r.inc, base)}</td><td class="r num">${money(r.exp, base)}</td><td class="r num ${r.inc - r.exp < 0 ? 'neg' : ''}">${signed(r.inc - r.exp, base)}</td></tr>`; }).join('')}
+    </tbody></table></div>` : '<div class="empty">Нет операций за период</div>'}</div>
+  </div>
+  <div class="card"><div class="card-head"><h2>По месяцам</h2></div>${mRows ? `<div class="tbl-wrap"><table class="tbl"><thead><tr><th>Месяц</th><th class="r">Доходы</th><th class="r">Расходы</th><th class="r">Прибыль</th><th class="r">Нарастающим итогом</th></tr></thead><tbody>${mRows}</tbody></table></div>` : '<div class="empty">Нет операций за период</div>'}</div>`;
+}
+
+/* ---------- Settings ---------- */
+function renderSettings() {
+  const s = S.settings;
+  const catBlock = (type, title) => `<div class="card"><div class="card-head"><h2>${title}</h2></div>
+    <div class="cat-list">${(type === 'income' ? s.incomeCats : s.expenseCats).map(c => `<span class="cat-item">${esc(c)}${c === SALARY ? '<span class="muted" style="padding:0 6px;font-size:12px">системная</span>' : `<button class="icon-btn" data-act="delCat" data-type="${type}" data-name="${esc(c)}" aria-label="Удалить статью ${esc(c)}">${ICON.x}</button>`}</span>`).join('')}</div>
+    <div class="inline-add"><input id="newCat-${type}" placeholder="Новая статья"><button class="btn" data-act="addCat" data-type="${type}">Добавить</button></div></div>`;
+  return `
+  <div class="page-head"><div><h1>Настройки</h1><p>Курс валют, начальные остатки и статьи доходов и расходов</p></div></div>
+  <div class="grid-2e">
+    <div class="card"><div class="card-head"><h2>Курс и остатки</h2></div>
+      <div class="grid-f">
+        <label class="fld span2"><span>Курс: 1 доллар = … сомони</span><input id="setRate" inputmode="decimal" value="${nf.format(s.rate)}"></label>
+        <label class="fld"><span>Начальный остаток, смн</span><input id="setOTJS" inputmode="decimal" value="${nf.format(s.openingTJS || 0)}"></label>
+        <label class="fld"><span>Начальный остаток, $</span><input id="setOUSD" inputmode="decimal" value="${nf.format(s.openingUSD || 0)}"></label>
+        <p class="hint span2">Курс подставляется в новые долларовые операции и используется для итогов. У каждой сохранённой операции остаётся свой курс на день платежа. Начальный остаток — деньги в кассе и на счетах на момент начала учёта.</p>
+        <div class="span2"><button class="btn primary" data-act="saveSettings">Сохранить</button></div>
+      </div>
+    </div>
+    <div class="card"><div class="card-head"><h2>Хранение данных</h2></div>
+      <p style="margin:0 0 10px">${Store.mode === 'cloud' ? 'Все записи сохраняются в облаке и доступны с любого устройства, где вы открываете эту страницу.' : 'Облачное хранилище сейчас недоступно, поэтому записи сохраняются только в этом браузере. Откройте страницу по ссылке в Claude, чтобы данные хранились в облаке.'}</p>
+      <p class="hint" style="margin:0">Операций: ${allTx().length} · проектов: ${Object.keys(S.projects).length} · заказчиков: ${Object.keys(S.clients).length} · сотрудников: ${Object.keys(S.employees).length}</p>
+      ${hasDemo() ? '<div style="margin-top:14px"><button class="btn" data-act="clearDemo">Удалить примерные данные</button></div>' : ''}
+    </div>
+  </div>
+  <div class="grid-2e">${catBlock('income', 'Статьи доходов')}${catBlock('expense', 'Статьи расходов')}</div>`;
+}
+
+/* ---------- Dialogs ---------- */
+const dlg = $('#dlg'); let dlgHandler = null;
+function openDialog(title, html, onOk, opts = {}) {
+  $('#dlgTitle').textContent = title; $('#dlgBody').innerHTML = html;
+  const ok = $('#dlgOk'); ok.textContent = opts.ok || 'Сохранить'; ok.className = 'btn ' + (opts.danger ? 'danger' : 'primary');
+  dlgHandler = onOk; dlg.showModal();
+  if (opts.wire) opts.wire($('#dlgBody'));
+  const first = $('#dlgBody').querySelector('input:not([type=radio]):not([type=checkbox]),select'); if (first && !opts.noFocus) first.focus();
+}
+$('#dlgForm').addEventListener('submit', e => {
+  if (!e.submitter || e.submitter.value !== 'ok') return;
+  e.preventDefault();
+  const fd = new FormData($('#dlgForm'));
+  if (dlgHandler && dlgHandler(fd) === false) return;
+  dlg.close();
+});
+function confirmDlg(title, text, onYes, ok = 'Удалить') { openDialog(title, `<p>${text}</p>`, () => { onYes(); }, {ok, danger: true, noFocus: true}); }
+const opt = (v, l, sel) => `<option value="${esc(v)}" ${sel ? 'selected' : ''}>${esc(l)}</option>`;
+
+function txDialog(t, preset) {
+  const isNew = !t;
+  const d = Object.assign({type: 'income', date: today(), amount: '', currency: 'TJS', rate: S.settings.rate, category: '', projectId: '', employeeId: '', method: 'bank', note: ''}, t || {}, preset || {});
+  const catOpts = (type, cur) => { const list = [...(type === 'income' ? S.settings.incomeCats : S.settings.expenseCats)]; if (cur && !list.includes(cur) && d.type === type) list.push(cur); return list.map(c => opt(c, c, c === cur)).join(''); };
+  const html = `
+    <div class="seg"><label><input type="radio" name="type" value="income" ${d.type === 'income' ? 'checked' : ''}>↓ Доход</label><label><input type="radio" name="type" value="expense" ${d.type === 'expense' ? 'checked' : ''}>↑ Расход</label></div>
+    <div class="grid-f">
+      <label class="fld"><span>Сумма</span><input name="amount" inputmode="decimal" required autocomplete="off" placeholder="0" value="${d.amount === '' ? '' : esc(String(d.amount).replace('.', ','))}"></label>
+      <label class="fld"><span>Валюта</span><select name="currency">${opt('TJS', 'Сомони (смн)', d.currency === 'TJS')}${opt('USD', 'Доллар ($)', d.currency === 'USD')}</select></label>
+      <label class="fld" data-show="usd" ${d.currency === 'USD' ? '' : 'hidden'}><span>Курс: 1 $ = … смн</span><input name="rate" inputmode="decimal" value="${esc(String(d.rate || S.settings.rate).replace('.', ','))}"></label>
+      <label class="fld" data-show="usd" ${d.currency === 'USD' ? '' : 'hidden'}><span>В сомони</span><input name="tjsPreview" disabled value=""></label>
+      <label class="fld"><span>Дата</span><input type="date" name="date" required value="${esc(d.date)}"></label>
+      <label class="fld"><span>Способ</span><select name="method">${Object.entries(METHODS).map(([k, v]) => opt(k, v, d.method === k)).join('')}</select></label>
+      <label class="fld span2"><span>Статья</span><select name="category" required>${catOpts(d.type, d.category)}</select></label>
+      <label class="fld span2" data-show="salary" ${d.type === 'expense' && d.category === SALARY ? '' : 'hidden'}><span>Сотрудник</span><select name="employeeId"><option value="">— выберите —</option>${sortedEmployees().filter(e => e.active !== false || e.id === d.employeeId).map(e => opt(e.id, e.name + (e.position ? ' · ' + e.position : ''), e.id === d.employeeId)).join('')}</select></label>
+      <label class="fld span2"><span>Проект</span><select name="projectId"><option value="">Без проекта (общие расходы или доходы)</option>${sortedProjects().map(p => opt(p.id, p.code + ' · ' + p.name, p.id === d.projectId)).join('')}</select></label>
+      <label class="fld span2"><span>Комментарий</span><input name="note" autocomplete="off" value="${esc(d.note)}" placeholder="Например: аванс 30% по договору №14/26"></label>
+    </div>`;
+  openDialog(isNew ? 'Новая операция' : 'Изменить операцию', html, fd => {
+    const amount = parseNum(fd.get('amount')), currency = fd.get('currency'), rate = parseNum(fd.get('rate'));
+    if (!(amount > 0)) { toast('Укажите сумму больше нуля', true); return false; }
+    if (currency === 'USD' && !(rate > 0)) { toast('Укажите курс доллара', true); return false; }
+    if (!fd.get('date')) { toast('Укажите дату', true); return false; }
+    const type = fd.get('type'), category = fd.get('category');
+    const tx = Object.assign({}, t || {}, {
+      id: t ? t.id : uid(), type, date: fd.get('date'), amount, currency, rate: currency === 'USD' ? rate : null,
+      category, projectId: fd.get('projectId') || '', employeeId: type === 'expense' && category === SALARY ? (fd.get('employeeId') || '') : '',
+      method: fd.get('method'), note: (fd.get('note') || '').trim(), createdAt: t ? t.createdAt : Date.now()
+    });
+    Store.saveTx(tx, t);
+    toast(isNew ? 'Операция добавлена' : 'Изменения сохранены');
+  }, {wire: body => {
+    const f = n => body.querySelector(`[name="${n}"]`);
+    const upd = () => {
+      const type = body.querySelector('[name="type"]:checked').value, cur = f('currency').value;
+      body.querySelectorAll('[data-show="usd"]').forEach(x => { x.hidden = cur !== 'USD'; });
+      body.querySelector('[data-show="salary"]').hidden = !(type === 'expense' && f('category').value === SALARY);
+      const a = parseNum(f('amount').value), r = parseNum(f('rate').value);
+      f('tjsPreview').value = a > 0 && r > 0 ? money(a * r, 'TJS') : '';
+    };
+    body.addEventListener('change', e => {
+      if (e.target.name === 'type') { f('category').innerHTML = catOpts(e.target.value, ''); }
+      upd();
+    });
+    body.addEventListener('input', upd);
+    upd();
+  }});
+}
+
+function projectDialog(p, preset) {
+  const isNew = !p;
+  const yy = String(new Date().getFullYear()).slice(2);
+  const nextNo = 1 + Math.max(0, ...Object.values(S.projects).map(x => (x.code || '').startsWith('НМ-' + yy + '-') ? parseInt(x.code.slice(6), 10) || 0 : 0));
+  const d = Object.assign({code: 'НМ-' + yy + '-' + String(nextNo).padStart(3, '0'), name: '', clientId: '', sections: [], status: 'work', contract: '', currency: 'TJS', start: today(), deadline: '', note: ''}, p || {}, preset || {});
+  const html = `
+    <div class="grid-f">
+      <label class="fld"><span>Шифр проекта</span><input name="code" required value="${esc(d.code)}"></label>
+      <label class="fld"><span>Статус</span><select name="status">${Object.entries(PSTAT).map(([k, v]) => opt(k, v.l, d.status === k)).join('')}</select></label>
+      <label class="fld span2"><span>Название объекта</span><input name="name" required value="${esc(d.name)}" placeholder="Например: Жилой дом по ул. Айни — наружные сети ВК"></label>
+      <label class="fld span2"><span>Заказчик</span><select name="clientId"><option value="">— не указан —</option>${sortedClients().map(c => opt(c.id, c.name, c.id === d.clientId)).join('')}<option value="__new">+ Новый заказчик…</option></select></label>
+      <label class="fld span2" data-show="newClient" hidden><span>Название нового заказчика</span><input name="newClient" placeholder="ООО «…»"></label>
+      <div class="fld span2"><span>Разделы проекта</span><div class="checks">${Object.entries(SECTIONS).map(([k, v]) => `<label title="${esc(v)}"><input type="checkbox" name="sections" value="${k}" ${d.sections.includes(k) ? 'checked' : ''}>${k}</label>`).join('')}</div><span class="hint" style="text-transform:none;letter-spacing:0;font:inherit;font-size:12.5px">Наведите на марку, чтобы увидеть расшифровку</span></div>
+      <label class="fld"><span>Сумма договора</span><input name="contract" inputmode="decimal" value="${d.contract === '' ? '' : esc(String(d.contract).replace('.', ','))}" placeholder="0"></label>
+      <label class="fld"><span>Валюта договора</span><select name="currency">${opt('TJS', 'Сомони (смн)', d.currency === 'TJS')}${opt('USD', 'Доллар ($)', d.currency === 'USD')}</select></label>
+      <label class="fld"><span>Дата начала</span><input type="date" name="start" value="${esc(d.start)}"></label>
+      <label class="fld"><span>Срок сдачи</span><input type="date" name="deadline" value="${esc(d.deadline)}"></label>
+      <label class="fld span2"><span>Примечание</span><input name="note" value="${esc(d.note)}" placeholder="Номер договора, стадия, особые условия"></label>
+    </div>`;
+  openDialog(isNew ? 'Новый проект' : 'Изменить проект', html, fd => {
+    const name = (fd.get('name') || '').trim(); if (!name) { toast('Укажите название объекта', true); return false; }
+    let clientId = fd.get('clientId');
+    if (clientId === '__new') {
+      const cn = (fd.get('newClient') || '').trim(); if (!cn) { toast('Укажите название нового заказчика', true); return false; }
+      const c = {id: uid(), name: cn, contact: '', phone: '', inn: '', note: ''}; Store.saveEntity('clients', c); clientId = c.id;
+    }
+    const contract = parseNum(fd.get('contract'));
+    const obj = Object.assign({}, p || {}, {id: p ? p.id : uid(), code: (fd.get('code') || '').trim(), name, clientId: clientId || '', sections: fd.getAll('sections'), status: fd.get('status'), contract: contract > 0 ? contract : 0, currency: fd.get('currency'), start: fd.get('start') || '', deadline: fd.get('deadline') || '', note: (fd.get('note') || '').trim()});
+    Store.saveEntity('projects', obj);
+    toast(isNew ? 'Проект создан' : 'Проект сохранён');
+  }, {wire: body => {
+    const sel = body.querySelector('[name="clientId"]');
+    sel.addEventListener('change', () => { body.querySelector('[data-show="newClient"]').hidden = sel.value !== '__new'; });
+  }});
+}
+
+function clientDialog(c) {
+  const d = Object.assign({name: '', contact: '', phone: '', inn: '', note: ''}, c || {});
+  openDialog(c ? 'Изменить заказчика' : 'Новый заказчик', `
+    <div class="grid-f">
+      <label class="fld span2"><span>Название организации или ФИО</span><input name="name" required value="${esc(d.name)}" placeholder="ООО «…»"></label>
+      <label class="fld"><span>Контактное лицо</span><input name="contact" value="${esc(d.contact)}"></label>
+      <label class="fld"><span>Телефон</span><input name="phone" type="tel" value="${esc(d.phone)}" placeholder="+992 …"></label>
+      <label class="fld span2"><span>ИНН</span><input name="inn" value="${esc(d.inn)}"></label>
+      <label class="fld span2"><span>Примечание</span><input name="note" value="${esc(d.note)}"></label>
+    </div>`, fd => {
+    const name = (fd.get('name') || '').trim(); if (!name) { toast('Укажите название заказчика', true); return false; }
+    Store.saveEntity('clients', Object.assign({}, c || {}, {id: c ? c.id : uid(), name, contact: fd.get('contact').trim(), phone: fd.get('phone').trim(), inn: fd.get('inn').trim(), note: fd.get('note').trim()}));
+    toast(c ? 'Заказчик сохранён' : 'Заказчик добавлен');
+  });
+}
+
+function empDialog(e) {
+  const d = Object.assign({name: '', position: '', salary: '', currency: 'TJS', active: true}, e || {});
+  openDialog(e ? 'Изменить сотрудника' : 'Новый сотрудник', `
+    <div class="grid-f">
+      <label class="fld span2"><span>ФИО</span><input name="name" required value="${esc(d.name)}"></label>
+      <label class="fld span2"><span>Должность</span><input name="position" value="${esc(d.position)}" placeholder="Например: инженер-проектировщик ОВ"></label>
+      <label class="fld"><span>Оклад в месяц</span><input name="salary" inputmode="decimal" value="${d.salary === '' ? '' : esc(String(d.salary).replace('.', ','))}"></label>
+      <label class="fld"><span>Валюта</span><select name="currency">${opt('TJS', 'Сомони (смн)', d.currency === 'TJS')}${opt('USD', 'Доллар ($)', d.currency === 'USD')}</select></label>
+      <label class="span2" style="display:flex;gap:8px;align-items:center"><input type="checkbox" name="active" ${d.active !== false ? 'checked' : ''}> Работает сейчас</label>
+    </div>`, fd => {
+    const name = (fd.get('name') || '').trim(); if (!name) { toast('Укажите ФИО', true); return false; }
+    const sal = parseNum(fd.get('salary'));
+    Store.saveEntity('employees', Object.assign({}, e || {}, {id: e ? e.id : uid(), name, position: fd.get('position').trim(), salary: sal > 0 ? sal : 0, currency: fd.get('currency'), active: fd.get('active') === 'on'}));
+    toast(e ? 'Сотрудник сохранён' : 'Сотрудник добавлен');
+  });
+}
+
+/* ---------- Actions ---------- */
+const findTx = (id, m) => (S.months[m] || {})[id] || allTx().find(t => t.id === id);
+const actions = {
+  nav: el => { UI.view = el.dataset.v; UI.detail = null; UI.clientDetail = null; render(); window.scrollTo(0, 0); },
+  base: el => { UI.base = el.dataset.v; try { localStorage.setItem('nemat-base', UI.base); } catch (e) {} render(); },
+  addTx: el => txDialog(null, Object.assign(el.dataset.type ? {type: el.dataset.type} : {}, el.dataset.project ? {projectId: el.dataset.project} : {})),
+  editTx: el => { const t = findTx(el.dataset.id, el.dataset.m); if (t) txDialog(t); },
+  delTx: el => { const t = findTx(el.dataset.id, el.dataset.m); if (t) confirmDlg('Удалить операцию?', `${esc(t.category)}, ${fmtDate(t.date)} — ${money(t.amount, t.currency)}. Отменить удаление будет нельзя.`, () => { Store.saveTx(null, t); toast('Операция удалена'); }); },
+  openProject: el => { UI.view = 'projects'; UI.detail = el.dataset.id; render(); window.scrollTo(0, 0); },
+  closeDetail: () => { UI.detail = null; render(); },
+  addProject: el => projectDialog(null, el.dataset.client ? {clientId: el.dataset.client} : null),
+  editProject: el => projectDialog(S.projects[el.dataset.id]),
+  delProject: el => { const p = S.projects[el.dataset.id]; if (!p) return; const n = projStats(p).txs.length; confirmDlg('Удалить проект?', `«${esc(p.name)}» будет удалён.${n ? ` ${n} ${plural(n, 'операция останется', 'операции останутся', 'операций останутся')} в учёте как общие.` : ''}`, () => { UI.detail = null; Store.deleteEntity('projects', p.id); toast('Проект удалён'); }); },
+  projFilter: el => { UI.proj = el.dataset.v; render(); },
+  openClient: el => { UI.view = 'clients'; UI.clientDetail = el.dataset.id; render(); window.scrollTo(0, 0); },
+  closeClient: () => { UI.clientDetail = null; render(); },
+  addClient: () => clientDialog(null),
+  editClient: el => clientDialog(S.clients[el.dataset.id]),
+  delClient: el => { const c = S.clients[el.dataset.id]; if (!c) return; const n = Object.values(S.projects).filter(p => p.clientId === c.id).length; confirmDlg('Удалить заказчика?', `«${esc(c.name)}» будет удалён.${n ? ` У ${n} ${plural(n, 'проекта', 'проектов', 'проектов')} заказчик станет «не указан».` : ''}`, () => { UI.clientDetail = null; Store.deleteEntity('clients', c.id); toast('Заказчик удалён'); }); },
+  addEmp: () => empDialog(null),
+  editEmp: el => empDialog(S.employees[el.dataset.id]),
+  delEmp: el => { const e = S.employees[el.dataset.id]; if (e) confirmDlg('Удалить сотрудника?', `${esc(e.name)} будет удалён из списка. Выплаты останутся в учёте. Если человек просто уволился, лучше снять отметку «Работает сейчас».`, () => { Store.deleteEntity('employees', e.id); toast('Сотрудник удалён'); }); },
+  toggleInactive: () => { UI.emp.inactive = !UI.emp.inactive; render(); },
+  payEmp: el => {
+    const e = S.employees[el.dataset.id]; if (!e) return; const m = UI.emp.month, cur = e.currency || 'TJS';
+    const paid = sum(Object.values(S.months[m] || {}).filter(t => t.category === SALARY && t.employeeId === e.id), t => txIn(t, cur));
+    const isCur = m === today().slice(0, 7);
+    txDialog(null, {type: 'expense', category: SALARY, employeeId: e.id, amount: Math.max(0, (+e.salary || 0) - paid), currency: cur, date: isCur ? today() : ymd(new Date(+m.slice(0, 4), +m.slice(5, 7), 0)), note: 'Зарплата за ' + monthLabel(m + '-01')});
+  },
+  addCat: el => {
+    const type = el.dataset.type, inp = $('#newCat-' + type), v = (inp.value || '').trim(); if (!v) return;
+    const s = Object.assign({}, S.settings), key = type === 'income' ? 'incomeCats' : 'expenseCats';
+    if (s[key].includes(v)) { toast('Такая статья уже есть', true); return; }
+    s[key] = [...s[key], v]; Store.saveSettings(s); toast('Статья добавлена');
+  },
+  delCat: el => { const type = el.dataset.type, name = el.dataset.name, key = type === 'income' ? 'incomeCats' : 'expenseCats'; const s = Object.assign({}, S.settings); s[key] = s[key].filter(c => c !== name); Store.saveSettings(s); toast('Статья удалена. Старые операции её сохранят.'); },
+  saveSettings: () => {
+    const rate = parseNum($('#setRate').value), o1 = parseNum($('#setOTJS').value), o2 = parseNum($('#setOUSD').value);
+    if (!(rate > 0)) { toast('Курс должен быть больше нуля', true); return; }
+    Store.saveSettings(Object.assign({}, S.settings, {rate, openingTJS: isFinite(o1) ? o1 : 0, openingUSD: isFinite(o2) ? o2 : 0})); toast('Настройки сохранены');
+  },
+  clearDemo: () => confirmDlg('Удалить примерные данные?', 'Будут удалены все примерные проекты, заказчики, сотрудники и операции, а начальные остатки обнулятся. Ваши собственные записи и статьи останутся.', () => {
+    const txs = allTx().filter(t => t.demo); Store.applyTx([], txs);
+    for (const c of ['projects', 'clients', 'employees']) Object.values(S[c]).filter(x => x.demo).forEach(x => Store.deleteEntity(c, x.id));
+    if (S.settings.demo) Store.saveSettings(Object.assign({}, S.settings, {demo: false, openingTJS: 0, openingUSD: 0}));
+    UI.detail = null; UI.clientDetail = null; toast('Примерные данные удалены — можно начинать учёт');
+  }, 'Удалить примеры'),
+  print: () => window.print()
+};
+document.addEventListener('click', e => {
+  const el = e.target.closest('[data-act]'); if (!el) return;
+  if (el.closest('.row-actions') && el.closest('tr.click') && el.closest('tr.click') !== el) e.stopPropagation();
+  const fn = actions[el.dataset.act]; if (fn) { e.preventDefault(); fn(el); }
+});
+function onFilter(e) {
+  const el = e.target.closest('[data-f]'); if (!el) return;
+  const [scope, key] = el.dataset.f.split('.');
+  if (e.type === 'input' && !(scope === 'ops' && key === 'q')) return;
+  UI[scope][key] = el.value;
+  if (scope === 'ops' && key !== 'period') renderOpsTable(); else render();
+}
+document.addEventListener('change', onFilter);
+document.addEventListener('input', onFilter);
+document.addEventListener('keydown', e => {
+  if (e.key === 'Enter' && e.target.id && e.target.id.startsWith('newCat-')) { e.preventDefault(); actions.addCat({dataset: {type: e.target.id.slice(7)}}); }
+});
+
+/* chart hover */
+document.addEventListener('pointermove', e => {
+  const wrap = $('#chartMain'); if (!wrap) return;
+  const tip = wrap.querySelector('.tip');
+  const hit = e.target.closest && e.target.closest('.hit');
+  if (!hit || !wrap.contains(hit)) { tip.hidden = true; return; }
+  const {series, base} = charts.main, s = series[+hit.dataset.i];
+  tip.innerHTML = `<b>${monthLabel(s.key + '-01')}</b><div><span><i style="display:inline-block;width:8px;height:8px;border-radius:2px;background:var(--s-inc);margin-right:6px"></i>Доходы</span><span class="num">${money(s.inc, base)}</span></div><div><span><i style="display:inline-block;width:8px;height:8px;border-radius:2px;background:var(--s-exp);margin-right:6px"></i>Расходы</span><span class="num">${money(s.exp, base)}</span></div><div style="border-top:1px solid var(--line);margin-top:4px;padding-top:4px"><span>Прибыль</span><span class="num ${s.inc - s.exp < 0 ? 'neg' : ''}">${signed(s.inc - s.exp, base)}</span></div>`;
+  tip.hidden = false;
+  const r = wrap.getBoundingClientRect(); let x = e.clientX - r.left + wrap.scrollLeft + 14, y = e.clientY - r.top - 10;
+  if (x + tip.offsetWidth > wrap.scrollWidth - 4) x = e.clientX - r.left + wrap.scrollLeft - tip.offsetWidth - 14;
+  tip.style.left = x + 'px'; tip.style.top = Math.max(0, y) + 'px';
+});
+
+let toastTimer;
+function toast(msg, err) { const t = $('#toast'); t.textContent = msg; t.className = 'toast' + (err ? ' err' : ''); t.hidden = false; clearTimeout(toastTimer); toastTimer = setTimeout(() => { t.hidden = true; }, 3200); }
+
+render();
+Store.init();
+})();
+</script>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Azam Finance</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans+Condensed:wght@500;600&display=swap">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div class="app">
+  <aside class="nav" aria-label="Разделы">
+    <div class="brand">
+      <div class="brand-mark" aria-hidden="true">AF</div>
+      <div><div class="brand-name">Azam Finance</div><div class="brand-sub">Бюджет организации</div></div>
+    </div>
+    <div id="navList" style="display:contents"></div>
+    <button class="btn primary nav-add" data-act="addTx">+ Операция</button>
+    <div class="nav-foot"><span class="dot" id="syncDot"></span><span id="syncText">Загрузка…</span></div>
+  </aside>
+  <main>
+    <header class="stamp" id="stamp"></header>
+    <section id="view" aria-live="polite"></section>
+  </main>
+</div>
+
+<dialog id="dlg">
+  <form id="dlgForm" method="dialog">
+    <header><h2 id="dlgTitle"></h2></header>
+    <div id="dlgBody"></div>
+    <footer>
+      <button type="submit" class="btn ghost" value="cancel" formnovalidate>Отмена</button>
+      <button type="submit" class="btn primary" id="dlgOk" value="ok">Сохранить</button>
+    </footer>
+  </form>
+</dialog>
+<div id="toast" class="toast" hidden></div>
+<input type="file" id="importFile" accept="application/json" hidden>
+
+<script src="js/app.js"></script>
+</body>
+</html>
